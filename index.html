@@ -14,10 +14,10 @@
       --border: #2a2a4a;
       --text: #ffffff;
       --text-dim: #8888aa;
-      --purple: #a855f7;
-      --teal: #06d6a0;
-      --pink: #ff4fd8;
-      --gradient: linear-gradient(135deg, #a855f7, #06d6a0);
+      --green: #00e87b;
+      --red: #ff3b5c;
+      --gold: #ffd93d;
+      --gradient: linear-gradient(135deg, #00e87b, #00c9a7);
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -40,22 +40,19 @@
     /* Header */
     .header {
       text-align: center;
-      padding: 30px 0;
+      padding: 20px 0 30px;
     }
     
     .logo {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.5px;
+      color: var(--green);
+      letter-spacing: 1px;
     }
     
     .tagline {
       color: var(--text-dim);
-      font-size: 14px;
+      font-size: 13px;
       margin-top: 4px;
     }
     
@@ -65,7 +62,7 @@
       background: var(--surface);
       border-radius: 12px;
       padding: 4px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     
     .tab {
@@ -81,7 +78,7 @@
     }
     
     .tab.active {
-      background: var(--gradient);
+      background: var(--green);
       color: #000;
     }
     
@@ -98,374 +95,217 @@
       display: block;
     }
     
-    /* Card */
-    .card {
+    /* Section */
+    .section {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
       margin-bottom: 16px;
     }
     
-    .card-title {
+    .section-title {
       font-size: 13px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-dim);
       margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
-    /* Ticket Type Selector */
-    .ticket-type {
+    .section-title .step {
+      background: var(--green);
+      color: #000;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    
+    /* Location Selector */
+    .location-selector {
+      position: relative;
+    }
+    
+    .location-display {
       background: var(--surface2);
       border: 2px solid var(--border);
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 12px;
+      padding: 16px;
       cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .ticket-type:hover {
-      border-color: var(--purple);
-    }
-    
-    .ticket-type.selected {
-      border-color: var(--teal);
-      background: rgba(6, 214, 160, 0.1);
-    }
-    
-    .ticket-type-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      transition: all 0.2s;
     }
     
-    .ticket-type-name {
+    .location-display:hover {
+      border-color: var(--green);
+    }
+    
+    .location-display .city {
       font-size: 18px;
       font-weight: 700;
     }
     
-    .ticket-type-price {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--teal);
-    }
-    
-    .ticket-type-desc {
+    .location-display .region {
       font-size: 13px;
       color: var(--text-dim);
     }
     
-    .peak-note {
-      display: inline-block;
-      background: rgba(255, 79, 216, 0.2);
-      color: var(--pink);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 6px;
+    .location-display .arrow {
+      font-size: 20px;
+      color: var(--text-dim);
+    }
+    
+    .location-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border: 2px solid var(--green);
+      border-radius: 12px;
       margin-top: 8px;
+      z-index: 100;
+      max-height: 300px;
+      overflow-y: auto;
     }
     
-    /* Quantity */
-    .quantity-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .quantity-label {
-      font-size: 16px;
-      font-weight: 500;
-    }
-    
-    .quantity-label span {
-      color: var(--text-dim);
-      font-size: 13px;
-      font-weight: 400;
+    .location-dropdown.show {
       display: block;
     }
     
-    .quantity-control {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    
-    .qty-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      background: var(--surface2);
-      color: var(--text);
-      font-size: 22px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .qty-btn:hover {
-      border-color: var(--purple);
-      background: rgba(168, 85, 247, 0.1);
-    }
-    
-    .qty-num {
-      font-size: 28px;
-      font-weight: 700;
-      min-width: 50px;
-      text-align: center;
-    }
-    
-    /* Info Box */
-    .info-box {
-      background: rgba(6, 214, 160, 0.1);
-      border: 1px solid rgba(6, 214, 160, 0.3);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-    
-    .info-box h4 {
-      color: var(--teal);
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-    
-    .info-box p {
-      font-size: 13px;
-      color: var(--text-dim);
-      margin: 0;
-    }
-    
-    .info-box ul {
-      font-size: 13px;
-      color: var(--text-dim);
-      margin: 8px 0 0 0;
-      padding-left: 20px;
-    }
-    
-    .info-box li {
-      margin-bottom: 4px;
-    }
-    
-    /* Wallet Buttons */
-    .wallet-btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: none;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: all 0.2s;
-    }
-    
-    .apple-pay {
-      background: #000;
-      color: #fff;
-      border: 1px solid #333;
-    }
-    
-    .apple-pay:hover {
-      background: #1a1a1a;
-    }
-    
-    .google-pay {
-      background: #fff;
-      color: #000;
-    }
-    
-    .google-pay:hover {
-      background: #f0f0f0;
-    }
-    
-    .divider {
-      display: flex;
-      align-items: center;
-      margin: 20px 0;
-      color: var(--text-dim);
-      font-size: 13px;
-    }
-    
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-    
-    .divider span {
-      padding: 0 16px;
-    }
-    
-    /* Form */
-    .form-group {
-      margin-bottom: 16px;
-    }
-    
-    .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-dim);
-      margin-bottom: 6px;
-    }
-    
-    .form-input {
-      width: 100%;
+    .location-option {
       padding: 14px 16px;
-      border-radius: 10px;
-      border: 2px solid var(--border);
-      background: var(--surface2);
-      color: var(--text);
-      font-size: 16px;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-    
-    .form-input:focus {
-      outline: none;
-      border-color: var(--purple);
-      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
-    }
-    
-    .form-input::placeholder {
-      color: var(--text-dim);
-    }
-    
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    
-    /* Policy Notice */
-    .policy-notice {
-      background: rgba(255, 79, 216, 0.1);
-      border: 1px solid rgba(255, 79, 216, 0.3);
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: var(--pink);
-      margin-bottom: 16px;
-    }
-    
-    .policy-notice strong {
-      display: block;
-      margin-bottom: 2px;
-    }
-    
-    /* Order Summary */
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
+      cursor: pointer;
       border-bottom: 1px solid var(--border);
-      font-size: 14px;
+      transition: all 0.15s;
     }
     
-    .summary-row:last-child {
+    .location-option:last-child {
       border-bottom: none;
     }
     
-    .summary-row.total {
-      font-size: 20px;
-      font-weight: 700;
-      padding-top: 16px;
+    .location-option:hover {
+      background: rgba(0, 232, 123, 0.1);
     }
     
-    .summary-row.total .amount {
-      color: var(--teal);
+    .location-option.selected {
+      background: rgba(0, 232, 123, 0.15);
     }
     
-    /* Submit Button */
-    .submit-btn {
-      width: 100%;
-      padding: 18px;
-      border-radius: 12px;
-      border: none;
-      background: var(--gradient);
-      color: #000;
-      font-size: 18px;
-      font-weight: 700;
+    .location-option .city {
+      font-weight: 600;
+    }
+    
+    .location-option .region {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    
+    /* Date Grid */
+    .date-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    
+    .date-btn {
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 4px;
+      color: var(--text);
       cursor: pointer;
       transition: all 0.2s;
-      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
-    }
-    
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(168, 85, 247, 0.5);
-    }
-    
-    /* Security Badge */
-    .security {
       text-align: center;
-      padding: 20px;
+    }
+    
+    .date-btn:hover {
+      border-color: var(--green);
+    }
+    
+    .date-btn.selected {
+      border-color: var(--green);
+      background: rgba(0, 232, 123, 0.15);
+    }
+    
+    .date-btn .day {
+      font-size: 10px;
       color: var(--text-dim);
-      font-size: 13px;
+      text-transform: uppercase;
     }
     
-    .security svg {
-      vertical-align: middle;
-      margin-right: 6px;
+    .date-btn .num {
+      font-size: 20px;
+      font-weight: 700;
     }
     
-    /* Promo Code */
-    .promo-toggle {
-      color: var(--purple);
-      font-size: 14px;
-      cursor: pointer;
-      display: inline-block;
+    .date-btn .price {
+      font-size: 11px;
+      color: var(--green);
+      font-weight: 600;
+    }
+    
+    .date-btn.peak .price {
+      color: var(--gold);
+    }
+    
+    .date-btn.peak::after {
+      content: '🔥';
+      font-size: 10px;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+    }
+    
+    .date-btn {
+      position: relative;
+    }
+    
+    /* Month nav */
+    .month-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 12px;
     }
     
-    .promo-toggle:hover {
-      text-decoration: underline;
-    }
-    
-    .promo-row {
-      display: none;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    
-    .promo-row.show {
-      display: flex;
-    }
-    
-    .promo-btn {
-      padding: 14px 20px;
-      border-radius: 10px;
-      border: 2px solid var(--purple);
-      background: transparent;
-      color: var(--purple);
-      font-weight: 600;
+    .month-nav button {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 16px;
     }
     
-    .promo-btn:hover {
-      background: rgba(168, 85, 247, 0.1);
+    .month-nav button:hover {
+      border-color: var(--green);
+    }
+    
+    .month-nav .month {
+      font-weight: 600;
+      font-size: 16px;
     }
     
     /* Add-ons */
     .addon-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 16px;
+      gap: 12px;
+      padding: 14px;
       background: var(--surface2);
       border: 2px solid var(--border);
       border-radius: 12px;
@@ -475,12 +315,21 @@
     }
     
     .addon-item:hover {
-      border-color: var(--purple);
+      border-color: var(--green);
     }
     
     .addon-item.selected {
-      border-color: var(--teal);
-      background: rgba(6, 214, 160, 0.1);
+      border-color: var(--green);
+      background: rgba(0, 232, 123, 0.1);
+    }
+    
+    .addon-item.featured {
+      background: linear-gradient(135deg, rgba(0, 232, 123, 0.1), rgba(255, 217, 61, 0.1));
+      border-color: var(--gold);
+    }
+    
+    .addon-item.featured.selected {
+      background: linear-gradient(135deg, rgba(0, 232, 123, 0.2), rgba(255, 217, 61, 0.2));
     }
     
     .addon-check {
@@ -497,8 +346,8 @@
     }
     
     .addon-item.selected .checkbox {
-      background: var(--teal);
-      border-color: var(--teal);
+      background: var(--green);
+      border-color: var(--green);
     }
     
     .addon-item.selected .checkbox::after {
@@ -510,6 +359,12 @@
       color: #000;
       font-weight: bold;
       font-size: 14px;
+    }
+    
+    .addon-icon {
+      font-size: 24px;
+      width: 40px;
+      text-align: center;
     }
     
     .addon-info {
@@ -529,25 +384,40 @@
     
     .addon-price {
       font-weight: 700;
-      color: var(--teal);
-      font-size: 16px;
+      color: var(--green);
+      font-size: 15px;
     }
     
-    /* Gift Toggle */
+    .addon-item.featured .addon-name {
+      color: var(--gold);
+    }
+    
+    .addon-badge {
+      background: var(--gold);
+      color: #000;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 8px;
+    }
+    
+    /* Gift Section */
     .gift-toggle {
       display: flex;
       align-items: center;
       gap: 14px;
       cursor: pointer;
+      padding: 4px 0;
     }
     
     .gift-toggle:hover .checkbox {
-      border-color: var(--purple);
+      border-color: var(--green);
     }
     
     .gift-toggle.selected .checkbox {
-      background: var(--teal);
-      border-color: var(--teal);
+      background: var(--green);
+      border-color: var(--green);
     }
     
     .gift-toggle.selected .checkbox::after {
@@ -570,132 +440,290 @@
       font-size: 16px;
     }
     
-    .gift-desc {
+    .gift-subtitle {
       font-size: 13px;
       color: var(--text-dim);
     }
     
-    /* Peak Notice */
-    .peak-notice {
-      background: rgba(255, 79, 216, 0.15);
-      border: 2px solid var(--pink);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
+    .gift-qty-section {
+      display: none;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
     }
     
-    .peak-notice-content {
+    .gift-qty-section.show {
+      display: block;
+    }
+    
+    .gift-qty-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .gift-qty-label {
+      font-size: 15px;
+    }
+    
+    .gift-qty-label span {
+      color: var(--text-dim);
+      font-size: 13px;
+      display: block;
+    }
+    
+    .qty-control {
       display: flex;
       align-items: center;
       gap: 12px;
     }
     
-    .peak-icon {
-      font-size: 28px;
-    }
-    
-    .peak-notice strong {
-      color: var(--pink);
-      font-size: 14px;
-    }
-    
-    .peak-notice p {
-      font-size: 12px;
-      color: var(--text-dim);
-      margin: 2px 0 0 0;
-    }
-    
-    .peak-price {
-      margin-left: auto;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--pink);
-    }
-    
-    .date-btn.peak .avail {
-      color: var(--pink);
-    }
-    
-    /* Ticket Options */
-    .ticket-option {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px;
-      background: var(--surface2);
+    .qty-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       border: 2px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 12px;
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 20px;
       cursor: pointer;
       transition: all 0.2s;
-      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
-    .ticket-option:hover {
-      border-color: var(--purple);
+    .qty-btn:hover {
+      border-color: var(--green);
     }
     
-    .ticket-option.selected {
-      border-color: var(--teal);
-      background: rgba(6, 214, 160, 0.1);
-    }
-    
-    .ticket-option.dasher {
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(255, 79, 216, 0.1));
-      border-color: var(--purple);
-    }
-    
-    .ticket-option.dasher.selected {
-      border-color: var(--pink);
-      box-shadow: 0 0 20px rgba(255, 79, 216, 0.3);
-    }
-    
-    .ticket-option-badge {
-      position: absolute;
-      top: -10px;
-      left: 16px;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      color: #fff;
-      font-size: 10px;
+    .qty-num {
+      font-size: 24px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
+      min-width: 40px;
+      text-align: center;
     }
     
-    .ticket-option-name {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-    
-    .ticket-option-desc {
+    .gift-note {
+      background: rgba(0, 232, 123, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 12px;
       font-size: 13px;
       color: var(--text-dim);
     }
     
-    .ticket-option-note {
-      font-size: 11px;
-      color: var(--pink);
-      margin-top: 4px;
+    .gift-note strong {
+      color: var(--green);
     }
     
-    .ticket-option.dasher .ticket-option-note {
-      color: var(--teal);
+    /* Payment Section */
+    .wallet-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
     }
     
-    .ticket-option-price {
-      font-size: 26px;
+    .apple-pay {
+      background: #000;
+      color: #fff;
+      border: 1px solid #333;
+    }
+    
+    .google-pay {
+      background: #fff;
+      color: #000;
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    
+    .divider span {
+      padding: 0 16px;
+    }
+    
+    .form-group {
+      margin-bottom: 14px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 16px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--green);
+    }
+    
+    .form-input::placeholder {
+      color: #555;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    /* Order Summary */
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+    
+    .summary-line.sub {
+      color: var(--text-dim);
+      font-size: 13px;
+      padding-left: 12px;
+    }
+    
+    .summary-line.total {
+      border-top: 2px solid var(--border);
+      margin-top: 8px;
+      padding-top: 12px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    
+    .summary-line.total .amount {
+      color: var(--green);
+    }
+    
+    /* Policy */
+    .policy-box {
+      background: rgba(255, 59, 92, 0.1);
+      border: 1px solid rgba(255, 59, 92, 0.3);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    
+    .policy-box strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+    
+    /* Submit */
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      border-radius: 12px;
+      border: none;
+      background: var(--green);
+      color: #000;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(0, 232, 123, 0.4);
+    }
+    
+    /* Security */
+    .security {
+      text-align: center;
+      padding: 16px;
+      color: var(--text-dim);
+      font-size: 12px;
+    }
+    
+    /* ========== REDEEM PAGE ========== */
+    
+    .lookup-section {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .lookup-section input {
+      flex: 1;
+    }
+    
+    .lookup-btn {
+      padding: 14px 24px;
+      border-radius: 10px;
+      border: none;
+      background: var(--green);
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    /* Voucher Card */
+    .voucher-card {
+      background: linear-gradient(135deg, var(--surface), var(--surface2));
+      border: 2px solid var(--green);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .voucher-card h3 {
+      color: var(--green);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    
+    .voucher-value {
+      font-size: 48px;
       font-weight: 800;
-      color: var(--teal);
+      color: var(--green);
     }
     
-    .ticket-option.dasher .ticket-option-price {
-      color: var(--pink);
+    .voucher-label {
+      color: var(--text-dim);
+      font-size: 14px;
     }
     
-    /* ============ REDEEM PAGE ============ */
-    
-    /* Venue Selector */
+    /* Venue Grid */
     .venue-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -716,14 +744,12 @@
     }
     
     .venue-btn:hover {
-      border-color: var(--purple);
-      background: rgba(168, 85, 247, 0.1);
+      border-color: var(--green);
     }
     
     .venue-btn.selected {
-      border-color: var(--teal);
-      background: rgba(6, 214, 160, 0.15);
-      box-shadow: 0 0 20px rgba(6, 214, 160, 0.2);
+      border-color: var(--green);
+      background: rgba(0, 232, 123, 0.15);
     }
     
     .venue-btn .city {
@@ -737,131 +763,76 @@
       margin-top: 2px;
     }
     
-    /* Date Picker */
-    .date-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-    
-    .date-btn {
-      background: var(--surface2);
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 6px;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
+    /* QR Display */
+    .qr-section {
       text-align: center;
     }
     
-    .date-btn:hover {
-      border-color: var(--purple);
-    }
-    
-    .date-btn.selected {
-      border-color: var(--teal);
-      background: rgba(6, 214, 160, 0.15);
-    }
-    
-    .date-btn .day {
-      font-size: 11px;
-      color: var(--text-dim);
-    }
-    
-    .date-btn .num {
-      font-size: 18px;
-      font-weight: 700;
-    }
-    
-    .date-btn .avail {
-      font-size: 10px;
-      color: var(--teal);
-    }
-    
-    .date-btn.limited .avail {
-      color: var(--pink);
-    }
-    
-    /* Redeem lookup */
-    .lookup-form {
-      display: flex;
-      gap: 10px;
-    }
-    
-    .lookup-form input {
-      flex: 1;
-    }
-    
-    .lookup-btn {
-      padding: 14px 24px;
-      border-radius: 10px;
-      border: none;
-      background: var(--purple);
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    
-    /* Ticket display */
-    .ticket-card {
-      background: linear-gradient(135deg, var(--surface), var(--surface2));
-      border: 2px solid var(--teal);
-      border-radius: 16px;
-      padding: 24px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    
-    .ticket-card h3 {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-    
-    .ticket-card .count {
-      font-size: 48px;
-      font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .ticket-card .label {
-      color: var(--text-dim);
-      font-size: 14px;
-    }
-    
-    /* QR Code area */
-    .qr-area {
+    .qr-card {
       background: #fff;
       border-radius: 16px;
       padding: 24px;
-      text-align: center;
-      margin: 20px 0;
+      display: inline-block;
+      margin-bottom: 20px;
     }
     
     .qr-placeholder {
-      width: 180px;
-      height: 180px;
-      background: #eee;
-      margin: 0 auto 16px;
+      width: 200px;
+      height: 200px;
+      background: #f0f0f0;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #666;
       font-size: 14px;
+      margin-bottom: 12px;
     }
     
-    .qr-info {
+    .qr-order {
       color: #333;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    
+    .success-card {
+      background: rgba(0, 232, 123, 0.1);
+      border: 2px solid var(--green);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .success-card h3 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .success-card .details {
+      color: var(--text-dim);
       font-size: 14px;
     }
     
-    .qr-info strong {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 4px;
+    .success-card .details strong {
+      color: var(--text);
+    }
+    
+    .wallet-add-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    /* Hide/show states */
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
@@ -869,183 +840,212 @@
   <div class="container">
     <!-- Header -->
     <header class="header">
-      <div class="logo">THE LIGHT PARK</div>
+      <div class="logo">🎄 THE LIGHT PARK</div>
       <div class="tagline">Texas's #1 Drive-Thru Light Show</div>
     </header>
     
     <!-- Tabs -->
     <div class="tabs">
       <div class="tab active" onclick="showPage('buy')">🎫 Buy Tickets</div>
-      <div class="tab" onclick="showPage('redeem')">📱 Redeem</div>
+      <div class="tab" onclick="showPage('redeem')">🎁 Redeem Gift</div>
     </div>
     
     <!-- ========== BUY PAGE ========== -->
     <div class="page active" id="buyPage">
       
-      <!-- Ticket Options -->
-      <div class="card">
-        <div class="card-title">🎫 Select Ticket</div>
-        
-        <div class="ticket-option selected" onclick="selectTicket(this, 39.99, 'general')">
-          <div class="ticket-option-left">
-            <div class="ticket-option-name">General Admission</div>
-            <div class="ticket-option-desc">One car, any # of passengers</div>
-            <div class="ticket-option-note">Peak dates +$15 at redemption</div>
+      <!-- Step 1: Location -->
+      <div class="section">
+        <div class="section-title"><span class="step">1</span> Select Location</div>
+        <div class="location-selector">
+          <div class="location-display" onclick="toggleLocationDropdown()">
+            <div>
+              <div class="city" id="selectedCity">Austin</div>
+              <div class="region" id="selectedRegion">Central Texas</div>
+            </div>
+            <div class="arrow">▼</div>
           </div>
-          <div class="ticket-option-price">$39.99</div>
-        </div>
-        
-        <div class="ticket-option dasher" onclick="selectTicket(this, 89, 'dasher')">
-          <div class="ticket-option-badge">⚡ SKIP THE LINE</div>
-          <div class="ticket-option-left">
-            <div class="ticket-option-name">Dasher Pass</div>
-            <div class="ticket-option-desc">Admission + VIP fast lane — skip the wait!</div>
-            <div class="ticket-option-note">✓ Ticket included · ✓ Any day, no surcharge</div>
+          <div class="location-dropdown" id="locationDropdown">
+            <div class="location-option selected" onclick="selectLocation('Austin', 'Central Texas')">
+              <div class="city">Austin</div>
+              <div class="region">Central Texas</div>
+            </div>
+            <div class="location-option" onclick="selectLocation('Houston', 'Gulf Coast')">
+              <div class="city">Houston</div>
+              <div class="region">Gulf Coast</div>
+            </div>
+            <div class="location-option" onclick="selectLocation('San Antonio', 'South Texas')">
+              <div class="city">San Antonio</div>
+              <div class="region">South Texas</div>
+            </div>
+            <div class="location-option" onclick="selectLocation('Dallas', 'North Texas')">
+              <div class="city">Dallas</div>
+              <div class="region">North Texas</div>
+            </div>
+            <div class="location-option" onclick="selectLocation('Katy', 'Houston Area')">
+              <div class="city">Katy</div>
+              <div class="region">Houston Area</div>
+            </div>
+            <div class="location-option" onclick="selectLocation('Frisco', 'Dallas Area')">
+              <div class="city">Frisco</div>
+              <div class="region">Dallas Area</div>
+            </div>
+            <div class="location-option" onclick="selectLocation('Spring', 'Houston Area')">
+              <div class="city">Spring</div>
+              <div class="region">Houston Area</div>
+            </div>
+            <div class="location-option" onclick="selectLocation('Pearland', 'Houston Area')">
+              <div class="city">Pearland</div>
+              <div class="region">Houston Area</div>
+            </div>
           </div>
-          <div class="ticket-option-price">$89</div>
         </div>
       </div>
       
-      <!-- Add-ons -->
-      <div class="card">
-        <div class="card-title">🎁 Add to Your Experience</div>
+      <!-- Step 2: Date -->
+      <div class="section">
+        <div class="section-title"><span class="step">2</span> Select Date</div>
+        <div class="month-nav">
+          <button onclick="changeMonth(-1)">←</button>
+          <span class="month" id="currentMonth">December 2026</span>
+          <button onclick="changeMonth(1)">→</button>
+        </div>
+        <div class="date-grid" id="dateGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      
+      <!-- Step 3: Add-ons -->
+      <div class="section">
+        <div class="section-title"><span class="step">3</span> Add-Ons</div>
         
-        <div class="addon-item" onclick="toggleAddon(this, 29.99)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
+        <div class="addon-item featured" onclick="toggleAddon(this, 'dasher', 20)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">⚡</div>
+          <div class="addon-info">
+            <div class="addon-name">Dasher Pass <span class="addon-badge">SKIP THE LINE</span></div>
+            <div class="addon-desc">VIP fast lane — drive past the wait!</div>
           </div>
+          <div class="addon-price">+$20</div>
+        </div>
+        
+        <div class="addon-item" onclick="toggleAddon(this, 'blitzen', 29.99)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">🎁</div>
           <div class="addon-info">
             <div class="addon-name">Blitzen Bundle</div>
-            <div class="addon-desc">Popcorn bucket + 2 Electric Lemonades + 2 Light Wands + 2 Magic Glasses</div>
+            <div class="addon-desc">Popcorn + 2 Lemonades + 2 Wands + 2 Glasses</div>
           </div>
           <div class="addon-price">+$29.99</div>
         </div>
         
-        <div class="addon-item" onclick="toggleAddon(this, 24.99)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
-          </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'plush', 24.99)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">🐻‍❄️</div>
           <div class="addon-info">
-            <div class="addon-name">DJ Polar Ice Plushie</div>
-            <div class="addon-desc">Cuddly stuffed animal of everyone's favorite DJ 🐻‍❄️🎧</div>
+            <div class="addon-name">DJ Polar Ice Plush</div>
+            <div class="addon-desc">Cuddly stuffed polar bear DJ</div>
           </div>
           <div class="addon-price">+$24.99</div>
         </div>
         
-        <div class="addon-item" onclick="toggleAddon(this, 15)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
-          </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'book', 15)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">📖</div>
           <div class="addon-info">
             <div class="addon-name">Adventures of DJ Polar Ice</div>
-            <div class="addon-desc">Illustrated storybook — read before or after your visit! 📖</div>
+            <div class="addon-desc">Illustrated children's storybook</div>
           </div>
           <div class="addon-price">+$15</div>
         </div>
         
-        <div class="addon-item" onclick="toggleAddon(this, 10.99)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
-          </div>
-          <div class="addon-info">
-            <div class="addon-name">Light Up Sunglasses</div>
-            <div class="addon-desc">LED sunglasses to glow during the show 😎✨</div>
-          </div>
-          <div class="addon-price">+$10.99</div>
-        </div>
-        
-        <div class="addon-item" onclick="toggleAddon(this, 9.99)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
-          </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'popcorn', 9.99)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">🍿</div>
           <div class="addon-info">
             <div class="addon-name">Bucket of Popcorn</div>
-            <div class="addon-desc">Hot & fresh movie theater popcorn 🍿</div>
+            <div class="addon-desc">Hot & fresh movie theater style</div>
           </div>
           <div class="addon-price">+$9.99</div>
         </div>
         
-        <div class="addon-item" onclick="toggleAddon(this, 7.99)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
-          </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'wand', 7.99)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">🪄</div>
           <div class="addon-info">
             <div class="addon-name">The Light Wand</div>
-            <div class="addon-desc">Be the brightest car in the show! 🪄</div>
+            <div class="addon-desc">Be the brightest car in the show!</div>
           </div>
           <div class="addon-price">+$7.99</div>
         </div>
         
-        <div class="addon-item" onclick="toggleAddon(this, 5.99)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
-          </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'lemonade', 5.99)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">🍋</div>
           <div class="addon-info">
             <div class="addon-name">Electric Lemonade</div>
-            <div class="addon-desc">Refreshing lemonade in a souvenir cup ⚡🍋</div>
+            <div class="addon-desc">Refreshing drink in souvenir cup</div>
           </div>
           <div class="addon-price">+$5.99</div>
         </div>
         
-        <div class="addon-item" onclick="toggleAddon(this, 5.99)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
-          </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'glasses', 5.99)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">✨</div>
           <div class="addon-info">
             <div class="addon-name">2-Pack Magic Glasses</div>
-            <div class="addon-desc">See a whole new show with holographic lenses ✨</div>
+            <div class="addon-desc">Holographic lenses — see the magic!</div>
           </div>
           <div class="addon-price">+$5.99</div>
         </div>
         
-        <div class="addon-item" onclick="toggleAddon(this, 2)">
-          <div class="addon-check">
-            <div class="checkbox"></div>
-          </div>
+        <div class="addon-item" onclick="toggleAddon(this, 'cotton', 5)">
+          <div class="addon-check"><div class="checkbox"></div></div>
+          <div class="addon-icon">🍭</div>
           <div class="addon-info">
             <div class="addon-name">Cotton Candy</div>
-            <div class="addon-desc">Fluffy, sweet, and festive 🍭</div>
+            <div class="addon-desc">Fluffy, sweet, and festive</div>
           </div>
-          <div class="addon-price">+$2</div>
+          <div class="addon-price">+$5</div>
         </div>
       </div>
       
-      <!-- Gift Option -->
-      <div class="card">
-        <div class="gift-toggle" onclick="toggleGift()">
-          <div class="gift-check">
-            <div class="checkbox" id="giftCheckbox"></div>
-          </div>
-          <div class="gift-info">
-            <div class="gift-title">🎁 Send as a Gift</div>
-            <div class="gift-desc">We'll email the tickets to your recipient instead</div>
+      <!-- Step 4: Gift Tickets -->
+      <div class="section">
+        <div class="section-title"><span class="step">4</span> Gift Tickets</div>
+        
+        <div class="gift-toggle" id="giftToggle" onclick="toggleGiftSection()">
+          <div class="gift-check"><div class="checkbox"></div></div>
+          <div>
+            <div class="gift-title">🎁 Buy tickets as a gift?</div>
+            <div class="gift-subtitle">Send vouchers to friends & family</div>
           </div>
         </div>
         
-        <div class="gift-fields" id="giftFields" style="display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
-          <div class="form-group">
-            <label class="form-label">Recipient's Name</label>
-            <input type="text" class="form-input" placeholder="Who's the lucky one?">
+        <div class="gift-qty-section" id="giftQtySection">
+          <div class="gift-qty-row">
+            <div class="gift-qty-label">
+              How many gift tickets?
+              <span>$39.99 each (base price)</span>
+            </div>
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeGiftQty(-1)">−</button>
+              <span class="qty-num" id="giftQty">1</span>
+              <button class="qty-btn" onclick="changeGiftQty(1)">+</button>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Recipient's Email</label>
-            <input type="email" class="form-input" placeholder="Their email address">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Gift Message (optional)</label>
-            <textarea class="form-input" rows="2" placeholder="Merry Christmas! See you at The Light Park 🎄" style="resize: none;"></textarea>
+          <div class="gift-note">
+            <strong>How it works:</strong> Recipients get a $39.99 voucher code. They pick their own date, location, and add-ons — and pay any difference.
           </div>
         </div>
       </div>
       
-      <!-- Payment -->
-      <div class="card">
-        <div class="card-title">💳 Payment</div>
+      <!-- Step 5: Payment -->
+      <div class="section">
+        <div class="section-title"><span class="step">5</span> Payment</div>
         
-        <!-- Wallet Buttons -->
         <button class="wallet-btn apple-pay">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-          Apple Pay
+           Pay
         </button>
         
         <button class="wallet-btn google-pay">
@@ -1055,7 +1055,6 @@
         
         <div class="divider"><span>or pay with card</span></div>
         
-        <!-- Card Form -->
         <div class="form-group">
           <label class="form-label">Email</label>
           <input type="email" class="form-input" placeholder="you@email.com">
@@ -1081,219 +1080,325 @@
           <label class="form-label">Name on Card</label>
           <input type="text" class="form-input" placeholder="John Smith">
         </div>
-        
-        <span class="promo-toggle" onclick="togglePromo()">+ Add promo code</span>
-        <div class="promo-row" id="promoRow">
-          <input type="text" class="form-input" placeholder="Enter code">
-          <button class="promo-btn">Apply</button>
-        </div>
-      </div>
-      
-      <!-- Policy Notice -->
-      <div class="policy-notice">
-        <strong>⚠️ All Sales Final</strong>
-        No refunds or exchanges. Redeem at any location during the 2026 season.
       </div>
       
       <!-- Order Summary -->
-      <div class="card">
-        <div class="card-title">🧾 Order Summary</div>
-        <div class="summary-row">
-          <span id="ticketLabel">General Admission</span>
-          <span>1 vehicle</span>
+      <div class="section">
+        <div class="section-title">🧾 Order Summary</div>
+        <div id="summaryLines">
+          <!-- Populated by JS -->
         </div>
-        <div class="summary-row">
-          <span>Subtotal</span>
-          <span id="subtotal">$45.00</span>
-        </div>
-        <div class="summary-row">
-          <span>Service Fee</span>
-          <span id="fee">$1.35</span>
-        </div>
-        <div class="summary-row total">
+        <div class="summary-line total">
           <span>Total</span>
-          <span class="amount" id="total">$46.35</span>
+          <span class="amount" id="totalAmount">$39.99</span>
         </div>
+      </div>
+      
+      <!-- Policy -->
+      <div class="policy-box">
+        <strong>⚠️ All Sales Final</strong>
+        No refunds or exchanges. Gift vouchers valid for 2026 season.
       </div>
       
       <!-- Submit -->
-      <button class="submit-btn" onclick="submitOrder()">
-        Buy Tickets — $46.35
+      <button class="submit-btn" id="submitBtn" onclick="submitOrder()">
+        Complete Purchase — $39.99
       </button>
       
-      <!-- Security -->
-      <div class="security">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-        Secured by Stripe
-      </div>
+      <div class="security">🔒 Secured by Stripe</div>
     </div>
     
     <!-- ========== REDEEM PAGE ========== -->
     <div class="page" id="redeemPage">
       
       <!-- Lookup -->
-      <div class="card">
-        <div class="card-title">🔍 Find Your Tickets</div>
-        <div class="lookup-form">
-          <input type="text" class="form-input" placeholder="Order # or email">
-          <button class="lookup-btn" onclick="lookupOrder()">Find</button>
+      <div id="redeemLookup">
+        <div class="section">
+          <div class="section-title">🎁 Redeem Your Gift</div>
+          <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 16px;">
+            Enter the gift code you received to redeem your tickets.
+          </p>
+          <div class="lookup-section">
+            <input type="text" class="form-input" placeholder="Gift code (e.g. GIFT-XXXX-XXXX)" id="giftCodeInput">
+            <button class="lookup-btn" onclick="lookupGift()">Redeem</button>
+          </div>
         </div>
       </div>
       
-      <!-- Ticket Display (shown after lookup) -->
-      <div id="ticketDisplay" style="display: none;">
-        <div class="ticket-card">
-          <h3>Your Tickets</h3>
-          <div class="count">2</div>
-          <div class="label">Peak Admission tickets to redeem</div>
+      <!-- Redemption Flow (hidden initially) -->
+      <div id="redeemFlow" class="hidden">
+        
+        <!-- Voucher Value -->
+        <div class="voucher-card">
+          <h3>Gift Voucher</h3>
+          <div class="voucher-value">$39.99</div>
+          <div class="voucher-label">loaded & ready to use</div>
         </div>
         
-        <!-- Select Location -->
-        <div class="card">
-          <div class="card-title">📍 Select Location</div>
+        <!-- Step 1: Location -->
+        <div class="section">
+          <div class="section-title"><span class="step">1</span> Select Location</div>
           <div class="venue-grid">
-            <button class="venue-btn" onclick="selectVenue(this)">
+            <button class="venue-btn" onclick="selectRedeemVenue(this)">
               <div class="city">Austin</div>
               <div class="region">Central TX</div>
             </button>
-            <button class="venue-btn" onclick="selectVenue(this)">
+            <button class="venue-btn" onclick="selectRedeemVenue(this)">
               <div class="city">Houston</div>
               <div class="region">Gulf Coast</div>
             </button>
-            <button class="venue-btn" onclick="selectVenue(this)">
+            <button class="venue-btn" onclick="selectRedeemVenue(this)">
               <div class="city">San Antonio</div>
               <div class="region">South TX</div>
             </button>
-            <button class="venue-btn selected" onclick="selectVenue(this)">
+            <button class="venue-btn" onclick="selectRedeemVenue(this)">
               <div class="city">Dallas</div>
               <div class="region">North TX</div>
             </button>
-            <button class="venue-btn" onclick="selectVenue(this)">
+            <button class="venue-btn" onclick="selectRedeemVenue(this)">
               <div class="city">Katy</div>
               <div class="region">Houston Area</div>
             </button>
-            <button class="venue-btn" onclick="selectVenue(this)">
+            <button class="venue-btn" onclick="selectRedeemVenue(this)">
               <div class="city">Frisco</div>
               <div class="region">Dallas Area</div>
             </button>
-            <button class="venue-btn" onclick="selectVenue(this)">
+            <button class="venue-btn" onclick="selectRedeemVenue(this)">
               <div class="city">Spring</div>
               <div class="region">Houston Area</div>
             </button>
-            <button class="venue-btn" onclick="selectVenue(this)">
+            <button class="venue-btn" onclick="selectRedeemVenue(this)">
               <div class="city">Pearland</div>
               <div class="region">Houston Area</div>
             </button>
           </div>
         </div>
         
-        <!-- Select Date -->
-        <div class="card">
-          <div class="card-title">📅 Select Date</div>
-          <div class="date-grid">
-            <button class="date-btn peak" onclick="selectRedeemDate(this, true)">
-              <div class="day">Fri</div>
-              <div class="num">13</div>
-              <div class="avail">+$15</div>
-            </button>
-            <button class="date-btn peak" onclick="selectRedeemDate(this, true)">
-              <div class="day">Sat</div>
-              <div class="num">14</div>
-              <div class="avail">+$15</div>
-            </button>
-            <button class="date-btn peak" onclick="selectRedeemDate(this, true)">
-              <div class="day">Sun</div>
-              <div class="num">15</div>
-              <div class="avail">+$15</div>
-            </button>
-            <button class="date-btn" onclick="selectRedeemDate(this, false)">
-              <div class="day">Mon</div>
-              <div class="num">16</div>
-              <div class="avail">Included</div>
-            </button>
-            <button class="date-btn" onclick="selectRedeemDate(this, false)">
-              <div class="day">Tue</div>
-              <div class="num">17</div>
-              <div class="avail">Included</div>
-            </button>
-            <button class="date-btn" onclick="selectRedeemDate(this, false)">
-              <div class="day">Wed</div>
-              <div class="num">18</div>
-              <div class="avail">Included</div>
-            </button>
-            <button class="date-btn" onclick="selectRedeemDate(this, false)">
-              <div class="day">Thu</div>
-              <div class="num">19</div>
-              <div class="avail">Included</div>
-            </button>
-            <button class="date-btn peak" onclick="selectRedeemDate(this, true)">
-              <div class="day">Fri</div>
-              <div class="num">20</div>
-              <div class="avail">+$15</div>
-            </button>
+        <!-- Step 2: Date -->
+        <div class="section">
+          <div class="section-title"><span class="step">2</span> Select Date</div>
+          <div class="month-nav">
+            <button onclick="changeRedeemMonth(-1)">←</button>
+            <span class="month" id="redeemMonth">December 2026</span>
+            <button onclick="changeRedeemMonth(1)">→</button>
+          </div>
+          <div class="date-grid" id="redeemDateGrid">
+            <!-- Populated by JS -->
           </div>
         </div>
         
-        <!-- Peak Surcharge Notice -->
-        <div class="peak-notice" id="peakNotice" style="display: none;">
-          <div class="peak-notice-content">
-            <span class="peak-icon">🔥</span>
-            <div>
-              <strong>Peak Date Selected</strong>
-              <p>Weekend/holiday dates require a $15 upgrade per ticket</p>
+        <!-- Step 3: Add-ons -->
+        <div class="section">
+          <div class="section-title"><span class="step">3</span> Add-Ons (Optional)</div>
+          
+          <div class="addon-item featured" onclick="toggleRedeemAddon(this, 'dasher', 20)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">⚡</div>
+            <div class="addon-info">
+              <div class="addon-name">Dasher Pass <span class="addon-badge">SKIP THE LINE</span></div>
+              <div class="addon-desc">VIP fast lane — drive past the wait!</div>
             </div>
-            <div class="peak-price">+$30</div>
+            <div class="addon-price">+$20</div>
+          </div>
+          
+          <div class="addon-item" onclick="toggleRedeemAddon(this, 'blitzen', 29.99)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">🎁</div>
+            <div class="addon-info">
+              <div class="addon-name">Blitzen Bundle</div>
+              <div class="addon-desc">Popcorn + 2 Lemonades + 2 Wands + 2 Glasses</div>
+            </div>
+            <div class="addon-price">+$29.99</div>
+          </div>
+          
+          <div class="addon-item" onclick="toggleRedeemAddon(this, 'plush', 24.99)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">🐻‍❄️</div>
+            <div class="addon-info">
+              <div class="addon-name">DJ Polar Ice Plush</div>
+              <div class="addon-desc">Cuddly stuffed polar bear DJ</div>
+            </div>
+            <div class="addon-price">+$24.99</div>
+          </div>
+          
+          <div class="addon-item" onclick="toggleRedeemAddon(this, 'book', 15)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">📖</div>
+            <div class="addon-info">
+              <div class="addon-name">Adventures of DJ Polar Ice</div>
+              <div class="addon-desc">Illustrated children's storybook</div>
+            </div>
+            <div class="addon-price">+$15</div>
+          </div>
+          
+          <div class="addon-item" onclick="toggleRedeemAddon(this, 'popcorn', 9.99)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">🍿</div>
+            <div class="addon-info">
+              <div class="addon-name">Bucket of Popcorn</div>
+              <div class="addon-desc">Hot & fresh movie theater style</div>
+            </div>
+            <div class="addon-price">+$9.99</div>
+          </div>
+          
+          <div class="addon-item" onclick="toggleRedeemAddon(this, 'wand', 7.99)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">🪄</div>
+            <div class="addon-info">
+              <div class="addon-name">The Light Wand</div>
+              <div class="addon-desc">Be the brightest car in the show!</div>
+            </div>
+            <div class="addon-price">+$7.99</div>
+          </div>
+          
+          <div class="addon-item" onclick="toggleRedeemAddon(this, 'lemonade', 5.99)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">🍋</div>
+            <div class="addon-info">
+              <div class="addon-name">Electric Lemonade</div>
+              <div class="addon-desc">Refreshing drink in souvenir cup</div>
+            </div>
+            <div class="addon-price">+$5.99</div>
+          </div>
+          
+          <div class="addon-item" onclick="toggleRedeemAddon(this, 'glasses', 5.99)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">✨</div>
+            <div class="addon-info">
+              <div class="addon-name">2-Pack Magic Glasses</div>
+              <div class="addon-desc">Holographic lenses — see the magic!</div>
+            </div>
+            <div class="addon-price">+$5.99</div>
+          </div>
+          
+          <div class="addon-item" onclick="toggleRedeemAddon(this, 'cotton', 5)">
+            <div class="addon-check"><div class="checkbox"></div></div>
+            <div class="addon-icon">🍭</div>
+            <div class="addon-info">
+              <div class="addon-name">Cotton Candy</div>
+              <div class="addon-desc">Fluffy, sweet, and festive</div>
+            </div>
+            <div class="addon-price">+$5</div>
           </div>
         </div>
         
-        <!-- Confirm Button -->
-        <button class="submit-btn" id="redeemBtn" onclick="confirmRedemption()">
-          Get My QR Code — Included ✓
+        <!-- Summary -->
+        <div class="section">
+          <div class="section-title">🧾 Summary</div>
+          <div class="summary-line">
+            <span>Gift Voucher</span>
+            <span style="color: var(--green);">-$39.99</span>
+          </div>
+          <div id="redeemSummaryLines">
+            <!-- Populated by JS -->
+          </div>
+          <div class="summary-line total">
+            <span>You Pay</span>
+            <span class="amount" id="redeemTotal">$0.00</span>
+          </div>
+        </div>
+        
+        <!-- Payment (if needed) -->
+        <div id="redeemPayment" class="hidden">
+          <div class="section">
+            <div class="section-title">💳 Payment</div>
+            <div class="form-group">
+              <label class="form-label">Email (for your ticket)</label>
+              <input type="email" class="form-input" placeholder="you@email.com">
+            </div>
+            <button class="wallet-btn apple-pay">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+               Pay
+            </button>
+            <div class="divider"><span>or card</span></div>
+            <div class="form-group">
+              <label class="form-label">Card Number</label>
+              <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Expiry</label>
+                <input type="text" class="form-input" placeholder="MM / YY">
+              </div>
+              <div class="form-group">
+                <label class="form-label">CVC</label>
+                <input type="text" class="form-input" placeholder="123">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Email only (if no payment needed) -->
+        <div id="redeemEmailOnly">
+          <div class="section">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Email (for your ticket)</label>
+              <input type="email" class="form-input" placeholder="you@email.com">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Submit -->
+        <button class="submit-btn" id="redeemBtn" onclick="submitRedemption()">
+          Get My QR Code — Free ✓
         </button>
+        
+        <div class="security">🔒 Secured by Stripe</div>
       </div>
       
-      <!-- QR Code Display (shown after confirmation) -->
-      <div id="qrDisplay" style="display: none;">
-        <div class="ticket-card">
-          <h3>You're All Set! 🎉</h3>
-          <div class="count">2</div>
-          <div class="label">tickets for Dallas · Sat, Dec 14</div>
-        </div>
-        
-        <div class="qr-area">
-          <div class="qr-placeholder">[QR Code]</div>
-          <div class="qr-info">
-            <strong>Order #TLP-2026-48291</strong>
-            Show this at the entrance gate
+      <!-- QR Success (hidden initially) -->
+      <div id="redeemSuccess" class="hidden">
+        <div class="success-card">
+          <h3>🎉 You're All Set!</h3>
+          <div class="details">
+            <strong>2 tickets</strong> for <strong>Austin</strong><br>
+            Saturday, December 14, 2026
           </div>
         </div>
         
-        <div class="info-box">
-          <h4>📧 Confirmation Sent!</h4>
-          <p>We emailed your tickets to john@email.com. You can also screenshot this QR code.</p>
+        <div class="qr-section">
+          <div class="qr-card">
+            <div class="qr-placeholder">[QR Code]</div>
+            <div class="qr-order">Order #TLP-2026-XXXX</div>
+          </div>
         </div>
         
-        <button class="submit-btn" style="background: var(--surface); color: var(--text); border: 2px solid var(--border); box-shadow: none;" onclick="addToWallet()">
-          Add to Apple Wallet
-        </button>
+        <div class="section" style="text-align: center;">
+          <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 16px;">
+            📧 We emailed your tickets too!<br>
+            Screenshot this QR or add to your wallet.
+          </p>
+          <button class="wallet-add-btn">Add to Apple Wallet</button>
+        </div>
       </div>
       
     </div>
   </div>
   
   <script>
-    let selectedPrice = 39.99;
-    let selectedTicketType = 'general';
-    let quantity = 1;
-    let addonsTotal = 0;
+    // ========== STATE ==========
+    const BASE_PRICE = 39.99;
+    const PEAK_SURCHARGE = 10;
+    const VOUCHER_VALUE = 39.99;
     
-    function selectTicket(el, price, type) {
-      document.querySelectorAll('.ticket-option').forEach(t => t.classList.remove('selected'));
-      el.classList.add('selected');
-      selectedPrice = price;
-      selectedTicketType = type;
-      updateSummary();
-    }
+    let state = {
+      location: 'Austin',
+      selectedDate: null,
+      isPeak: false,
+      addons: {},
+      giftQty: 0,
+      addonsTotal: 0
+    };
+    
+    let redeemState = {
+      venue: null,
+      selectedDate: null,
+      isPeak: false,
+      addons: {},
+      addonsTotal: 0
+    };
+    
+    // ========== BUY PAGE ==========
     
     function showPage(page) {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1308,97 +1413,302 @@
       }
     }
     
-    function changeQty(delta) {
-      quantity = Math.max(1, Math.min(10, quantity + delta));
-      document.getElementById('qty').textContent = quantity;
+    function toggleLocationDropdown() {
+      document.getElementById('locationDropdown').classList.toggle('show');
+    }
+    
+    function selectLocation(city, region) {
+      state.location = city;
+      document.getElementById('selectedCity').textContent = city;
+      document.getElementById('selectedRegion').textContent = region;
+      document.getElementById('locationDropdown').classList.remove('show');
+      
+      // Update selected state
+      document.querySelectorAll('.location-option').forEach(opt => {
+        opt.classList.remove('selected');
+        if (opt.querySelector('.city').textContent === city) {
+          opt.classList.add('selected');
+        }
+      });
+    }
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.location-selector')) {
+        document.getElementById('locationDropdown').classList.remove('show');
+      }
+    });
+    
+    // Date grid
+    function renderDateGrid() {
+      const grid = document.getElementById('dateGrid');
+      grid.innerHTML = '';
+      
+      // December 2026 dates (sample)
+      const dates = [
+        { day: 'Mon', num: 9, peak: false },
+        { day: 'Tue', num: 10, peak: false },
+        { day: 'Wed', num: 11, peak: false },
+        { day: 'Thu', num: 12, peak: false },
+        { day: 'Fri', num: 13, peak: true },
+        { day: 'Sat', num: 14, peak: true },
+        { day: 'Sun', num: 15, peak: true },
+        { day: 'Mon', num: 16, peak: false },
+        { day: 'Tue', num: 17, peak: false },
+        { day: 'Wed', num: 18, peak: false },
+        { day: 'Thu', num: 19, peak: false },
+        { day: 'Fri', num: 20, peak: true },
+        { day: 'Sat', num: 21, peak: true },
+        { day: 'Sun', num: 22, peak: true },
+        { day: 'Mon', num: 23, peak: true }, // Christmas week
+        { day: 'Tue', num: 24, peak: true }, // Christmas Eve
+      ];
+      
+      dates.forEach(d => {
+        const btn = document.createElement('button');
+        btn.className = 'date-btn' + (d.peak ? ' peak' : '');
+        btn.innerHTML = `
+          <div class="day">${d.day}</div>
+          <div class="num">${d.num}</div>
+          <div class="price">${d.peak ? '+$' + PEAK_SURCHARGE : '$' + BASE_PRICE}</div>
+        `;
+        btn.onclick = () => selectDate(btn, d.num, d.peak);
+        grid.appendChild(btn);
+      });
+    }
+    
+    function selectDate(btn, num, isPeak) {
+      document.querySelectorAll('#dateGrid .date-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      state.selectedDate = num;
+      state.isPeak = isPeak;
       updateSummary();
     }
     
-    function toggleAddon(el, price) {
+    function changeMonth(dir) {
+      // Just visual for prototype
+      const el = document.getElementById('currentMonth');
+      if (dir > 0) el.textContent = 'January 2027';
+      else el.textContent = 'December 2026';
+    }
+    
+    function toggleAddon(el, name, price) {
       el.classList.toggle('selected');
       
-      // Recalculate addons total
-      addonsTotal = 0;
-      document.querySelectorAll('.addon-item.selected').forEach(item => {
-        const priceText = item.querySelector('.addon-price').textContent;
-        addonsTotal += parseFloat(priceText.replace(/[^0-9.]/g, ''));
-      });
+      if (el.classList.contains('selected')) {
+        state.addons[name] = price;
+      } else {
+        delete state.addons[name];
+      }
       
+      updateSummary();
+    }
+    
+    function toggleGiftSection() {
+      const toggle = document.getElementById('giftToggle');
+      const section = document.getElementById('giftQtySection');
+      
+      toggle.classList.toggle('selected');
+      
+      if (toggle.classList.contains('selected')) {
+        section.classList.add('show');
+        state.giftQty = 1;
+      } else {
+        section.classList.remove('show');
+        state.giftQty = 0;
+      }
+      
+      updateSummary();
+    }
+    
+    function changeGiftQty(delta) {
+      state.giftQty = Math.max(1, Math.min(10, state.giftQty + delta));
+      document.getElementById('giftQty').textContent = state.giftQty;
       updateSummary();
     }
     
     function updateSummary() {
-      const ticketSubtotal = selectedPrice * quantity;
-      const subtotal = ticketSubtotal + addonsTotal;
-      const fee = (subtotal * 0.03).toFixed(2);
-      const total = (subtotal + parseFloat(fee)).toFixed(2);
+      const lines = document.getElementById('summaryLines');
+      let html = '';
+      let total = 0;
       
-      const ticketName = selectedTicketType === 'dasher' ? '⚡ Dasher Pass' : 'General Admission';
-      document.getElementById('ticketLabel').textContent = ticketName;
-      document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
-      document.getElementById('fee').textContent = '$' + fee;
-      document.getElementById('total').textContent = '$' + total;
-      document.querySelector('.submit-btn').textContent = 'Buy Tickets — $' + total;
-    }
-    
-    function togglePromo() {
-      document.getElementById('promoRow').classList.toggle('show');
-    }
-    
-    function toggleGift() {
-      const toggle = document.querySelector('.gift-toggle');
-      const fields = document.getElementById('giftFields');
-      toggle.classList.toggle('selected');
-      fields.style.display = toggle.classList.contains('selected') ? 'block' : 'none';
+      // Base ticket
+      const ticketPrice = BASE_PRICE + (state.isPeak ? PEAK_SURCHARGE : 0);
+      html += `<div class="summary-line"><span>🎫 General Admission${state.isPeak ? ' (Peak)' : ''}</span><span>$${ticketPrice.toFixed(2)}</span></div>`;
+      total += ticketPrice;
+      
+      // Add-ons
+      for (const [name, price] of Object.entries(state.addons)) {
+        const displayName = {
+          dasher: '⚡ Dasher Pass',
+          blitzen: '🎁 Blitzen Bundle',
+          plush: '🐻‍❄️ DJ Polar Ice Plush',
+          book: '📖 Storybook',
+          popcorn: '🍿 Popcorn',
+          wand: '🪄 Light Wand',
+          lemonade: '🍋 Electric Lemonade',
+          glasses: '✨ Magic Glasses',
+          cotton: '🍭 Cotton Candy'
+        }[name] || name;
+        
+        html += `<div class="summary-line sub"><span>${displayName}</span><span>+$${price.toFixed(2)}</span></div>`;
+        total += price;
+      }
+      
+      // Gift tickets
+      if (state.giftQty > 0) {
+        const giftTotal = state.giftQty * BASE_PRICE;
+        html += `<div class="summary-line"><span>🎁 Gift Tickets (${state.giftQty}x)</span><span>$${giftTotal.toFixed(2)}</span></div>`;
+        total += giftTotal;
+      }
+      
+      lines.innerHTML = html;
+      document.getElementById('totalAmount').textContent = '$' + total.toFixed(2);
+      document.getElementById('submitBtn').textContent = 'Complete Purchase — $' + total.toFixed(2);
     }
     
     function submitOrder() {
-      alert('This is a prototype! In production, this would create a Stripe Checkout session and email your ticket vouchers.');
+      alert('🎉 This is a prototype!\n\nIn production, this would:\n1. Create a Stripe Checkout session\n2. Email your QR code ticket\n3. Email gift voucher codes (if any)\n\nYour ticket: Dec ' + (state.selectedDate || '14') + ', ' + state.location);
     }
     
-    // Redeem page functions
-    function lookupOrder() {
-      document.getElementById('ticketDisplay').style.display = 'block';
+    // ========== REDEEM PAGE ==========
+    
+    function lookupGift() {
+      const code = document.getElementById('giftCodeInput').value;
+      if (!code) {
+        alert('Please enter your gift code');
+        return;
+      }
+      
+      // Show redemption flow
+      document.getElementById('redeemLookup').classList.add('hidden');
+      document.getElementById('redeemFlow').classList.remove('hidden');
+      
+      renderRedeemDateGrid();
     }
     
-    function selectVenue(btn) {
+    function selectRedeemVenue(btn) {
       document.querySelectorAll('.venue-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
+      redeemState.venue = btn.querySelector('.city').textContent;
     }
     
-    function selectDate(btn) {
-      document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
+    function renderRedeemDateGrid() {
+      const grid = document.getElementById('redeemDateGrid');
+      grid.innerHTML = '';
+      
+      const dates = [
+        { day: 'Mon', num: 9, peak: false },
+        { day: 'Tue', num: 10, peak: false },
+        { day: 'Wed', num: 11, peak: false },
+        { day: 'Thu', num: 12, peak: false },
+        { day: 'Fri', num: 13, peak: true },
+        { day: 'Sat', num: 14, peak: true },
+        { day: 'Sun', num: 15, peak: true },
+        { day: 'Mon', num: 16, peak: false },
+        { day: 'Tue', num: 17, peak: false },
+        { day: 'Wed', num: 18, peak: false },
+        { day: 'Thu', num: 19, peak: false },
+        { day: 'Fri', num: 20, peak: true },
+        { day: 'Sat', num: 21, peak: true },
+        { day: 'Sun', num: 22, peak: true },
+        { day: 'Mon', num: 23, peak: true },
+        { day: 'Tue', num: 24, peak: true },
+      ];
+      
+      dates.forEach(d => {
+        const btn = document.createElement('button');
+        btn.className = 'date-btn' + (d.peak ? ' peak' : '');
+        btn.innerHTML = `
+          <div class="day">${d.day}</div>
+          <div class="num">${d.num}</div>
+          <div class="price">${d.peak ? '+$' + PEAK_SURCHARGE : 'Included'}</div>
+        `;
+        btn.onclick = () => selectRedeemDate(btn, d.num, d.peak);
+        grid.appendChild(btn);
+      });
     }
     
-    function selectRedeemDate(btn, isPeak) {
-      document.querySelectorAll('#redeemPage .date-btn').forEach(b => b.classList.remove('selected'));
+    function selectRedeemDate(btn, num, isPeak) {
+      document.querySelectorAll('#redeemDateGrid .date-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
+      redeemState.selectedDate = num;
+      redeemState.isPeak = isPeak;
+      updateRedeemSummary();
+    }
+    
+    function changeRedeemMonth(dir) {
+      const el = document.getElementById('redeemMonth');
+      if (dir > 0) el.textContent = 'January 2027';
+      else el.textContent = 'December 2026';
+    }
+    
+    function toggleRedeemAddon(el, name, price) {
+      el.classList.toggle('selected');
       
-      const notice = document.getElementById('peakNotice');
-      const redeemBtn = document.getElementById('redeemBtn');
-      const ticketCount = 2; // From lookup, would be dynamic
-      
-      if (isPeak) {
-        notice.style.display = 'block';
-        document.querySelector('.peak-price').textContent = '+$' + (15 * ticketCount);
-        redeemBtn.textContent = 'Pay $' + (15 * ticketCount) + ' & Get QR Code';
-        redeemBtn.style.background = 'linear-gradient(135deg, #ff4fd8, #a855f7)';
+      if (el.classList.contains('selected')) {
+        redeemState.addons[name] = price;
       } else {
-        notice.style.display = 'none';
-        redeemBtn.textContent = 'Get My QR Code — Included ✓';
-        redeemBtn.style.background = 'var(--gradient)';
+        delete redeemState.addons[name];
+      }
+      
+      updateRedeemSummary();
+    }
+    
+    function updateRedeemSummary() {
+      const lines = document.getElementById('redeemSummaryLines');
+      let html = '';
+      let extras = 0;
+      
+      // Peak surcharge
+      if (redeemState.isPeak) {
+        html += `<div class="summary-line"><span>🔥 Peak Date Surcharge</span><span>+$${PEAK_SURCHARGE.toFixed(2)}</span></div>`;
+        extras += PEAK_SURCHARGE;
+      }
+      
+      // Add-ons
+      for (const [name, price] of Object.entries(redeemState.addons)) {
+        const displayName = {
+          dasher: '⚡ Dasher Pass',
+          blitzen: '🎁 Blitzen Bundle',
+          plush: '🐻‍❄️ DJ Polar Ice Plush',
+          book: '📖 Storybook',
+          popcorn: '🍿 Popcorn',
+          wand: '🪄 Light Wand',
+          lemonade: '🍋 Electric Lemonade',
+          glasses: '✨ Magic Glasses',
+          cotton: '🍭 Cotton Candy'
+        }[name] || name;
+        
+        html += `<div class="summary-line"><span>${displayName}</span><span>+$${price.toFixed(2)}</span></div>`;
+        extras += price;
+      }
+      
+      lines.innerHTML = html;
+      
+      const youPay = Math.max(0, extras);
+      document.getElementById('redeemTotal').textContent = '$' + youPay.toFixed(2);
+      
+      // Show/hide payment section
+      if (youPay > 0) {
+        document.getElementById('redeemPayment').classList.remove('hidden');
+        document.getElementById('redeemEmailOnly').classList.add('hidden');
+        document.getElementById('redeemBtn').textContent = 'Pay $' + youPay.toFixed(2) + ' & Get QR Code';
+      } else {
+        document.getElementById('redeemPayment').classList.add('hidden');
+        document.getElementById('redeemEmailOnly').classList.remove('hidden');
+        document.getElementById('redeemBtn').textContent = 'Get My QR Code — Free ✓';
       }
     }
     
-    function confirmRedemption() {
-      document.getElementById('ticketDisplay').style.display = 'none';
-      document.getElementById('qrDisplay').style.display = 'block';
+    function submitRedemption() {
+      document.getElementById('redeemFlow').classList.add('hidden');
+      document.getElementById('redeemSuccess').classList.remove('hidden');
     }
     
-    function addToWallet() {
-      alert('This would generate an Apple Wallet pass!');
-    }
+    // ========== INIT ==========
+    renderDateGrid();
+    updateSummary();
   </script>
 </body>
 </html>
