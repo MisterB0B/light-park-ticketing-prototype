@@ -906,21 +906,6 @@
         </div>
       </div>
       
-      <!-- Quantity -->
-      <div class="card">
-        <div class="quantity-row">
-          <div class="quantity-label">
-            How many cars?
-            <span>Each ticket admits one vehicle</span>
-          </div>
-          <div class="quantity-control">
-            <button class="qty-btn" onclick="changeQty(-1)">−</button>
-            <div class="qty-num" id="qty">1</div>
-            <button class="qty-btn" onclick="changeQty(1)">+</button>
-          </div>
-        </div>
-      </div>
-      
       <!-- Add-ons -->
       <div class="card">
         <div class="card-title">🎁 Add to Your Experience</div>
@@ -1115,7 +1100,7 @@
         <div class="card-title">🧾 Order Summary</div>
         <div class="summary-row">
           <span id="ticketLabel">General Admission</span>
-          <span id="summaryQty">× 1</span>
+          <span>1 vehicle</span>
         </div>
         <div class="summary-row">
           <span>Subtotal</span>
@@ -1350,7 +1335,6 @@
       
       const ticketName = selectedTicketType === 'dasher' ? '⚡ Dasher Pass' : 'General Admission';
       document.getElementById('ticketLabel').textContent = ticketName;
-      document.getElementById('summaryQty').textContent = '× ' + quantity;
       document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
       document.getElementById('fee').textContent = '$' + fee;
       document.getElementById('total').textContent = '$' + total;
