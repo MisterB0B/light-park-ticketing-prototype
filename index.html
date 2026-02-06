@@ -722,34 +722,20 @@
     <!-- ========== BUY PAGE ========== -->
     <div class="page active" id="buyPage">
       
-      <!-- Ticket Types -->
-      <div class="card">
-        <div class="card-title">🎫 Select Ticket Type</div>
-        
-        <div class="ticket-type selected" onclick="selectTicketType(this, 45)">
-          <div class="ticket-type-header">
-            <div class="ticket-type-name">Regular Admission</div>
-            <div class="ticket-type-price">$45</div>
-          </div>
-          <div class="ticket-type-desc">Valid any weekday (Mon–Thu)</div>
-        </div>
-        
-        <div class="ticket-type" onclick="selectTicketType(this, 55)">
-          <div class="ticket-type-header">
-            <div class="ticket-type-name">Peak Admission</div>
-            <div class="ticket-type-price">$55</div>
-          </div>
-          <div class="ticket-type-desc">Valid any day including weekends</div>
-          <div class="peak-note">🔥 Fri, Sat, Sun & Holidays</div>
-        </div>
+      <!-- Ticket Info -->
+      <div class="card" style="text-align: center; padding: 30px;">
+        <div style="font-size: 48px; margin-bottom: 8px;">🚗</div>
+        <div style="font-size: 28px; font-weight: 800; margin-bottom: 4px;">$49.99</div>
+        <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">per vehicle</div>
+        <div style="font-size: 13px; color: var(--text-dim);">One ticket = One car (any # of passengers)<br>Valid at any location during 2026 season</div>
       </div>
       
       <!-- Quantity -->
       <div class="card">
         <div class="quantity-row">
           <div class="quantity-label">
-            How many tickets?
-            <span>1 ticket = 1 car, any location</span>
+            How many cars?
+            <span>Each ticket admits one vehicle</span>
           </div>
           <div class="quantity-control">
             <button class="qty-btn" onclick="changeQty(-1)">−</button>
@@ -935,7 +921,7 @@
       <div class="card">
         <div class="card-title">🧾 Order Summary</div>
         <div class="summary-row">
-          <span id="ticketTypeLabel">Regular Admission</span>
+          <span>Vehicle Admission</span>
           <span id="summaryQty">× 1</span>
         </div>
         <div class="summary-row">
@@ -1106,9 +1092,8 @@
   </div>
   
   <script>
-    let selectedPrice = 45;
+    let selectedPrice = 49.99;
     let quantity = 1;
-    let ticketTypeName = 'Regular Admission';
     let addonsTotal = 0;
     
     function showPage(page) {
@@ -1122,14 +1107,6 @@
         document.querySelector('.tab:last-child').classList.add('active');
         document.getElementById('redeemPage').classList.add('active');
       }
-    }
-    
-    function selectTicketType(el, price) {
-      document.querySelectorAll('.ticket-type').forEach(t => t.classList.remove('selected'));
-      el.classList.add('selected');
-      selectedPrice = price;
-      ticketTypeName = el.querySelector('.ticket-type-name').textContent;
-      updateSummary();
     }
     
     function changeQty(delta) {
@@ -1157,7 +1134,6 @@
       const fee = (subtotal * 0.03).toFixed(2);
       const total = (subtotal + parseFloat(fee)).toFixed(2);
       
-      document.getElementById('ticketTypeLabel').textContent = ticketTypeName;
       document.getElementById('summaryQty').textContent = '× ' + quantity;
       document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
       document.getElementById('fee').textContent = '$' + fee;
