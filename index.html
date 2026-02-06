@@ -59,6 +59,45 @@
       margin-top: 4px;
     }
     
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 20px;
+    }
+    
+    .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-dim);
+      transition: all 0.2s;
+    }
+    
+    .tab.active {
+      background: var(--gradient);
+      color: #000;
+    }
+    
+    .tab:not(.active):hover {
+      color: var(--text);
+    }
+    
+    /* Page */
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+    }
+    
     /* Card */
     .card {
       background: var(--surface);
@@ -77,82 +116,58 @@
       margin-bottom: 16px;
     }
     
-    /* Venue Selector */
-    .venue-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    
-    .venue-btn {
+    /* Ticket Type Selector */
+    .ticket-type {
       background: var(--surface2);
       border: 2px solid var(--border);
       border-radius: 12px;
-      padding: 14px 12px;
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 600;
+      padding: 20px;
+      margin-bottom: 12px;
       cursor: pointer;
       transition: all 0.2s;
-      text-align: center;
     }
     
-    .venue-btn:hover {
-      border-color: var(--purple);
-      background: rgba(168, 85, 247, 0.1);
-    }
-    
-    .venue-btn.selected {
-      border-color: var(--teal);
-      background: rgba(6, 214, 160, 0.15);
-      box-shadow: 0 0 20px rgba(6, 214, 160, 0.2);
-    }
-    
-    /* Date Picker */
-    .date-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-    
-    .date-btn {
-      background: var(--surface2);
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 6px;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
-    }
-    
-    .date-btn:hover {
+    .ticket-type:hover {
       border-color: var(--purple);
     }
     
-    .date-btn.selected {
+    .ticket-type.selected {
       border-color: var(--teal);
-      background: rgba(6, 214, 160, 0.15);
+      background: rgba(6, 214, 160, 0.1);
     }
     
-    .date-btn .day {
-      font-size: 11px;
-      color: var(--text-dim);
+    .ticket-type-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
     }
     
-    .date-btn .num {
+    .ticket-type-name {
       font-size: 18px;
       font-weight: 700;
     }
     
-    .date-btn .price {
-      font-size: 11px;
+    .ticket-type-price {
+      font-size: 24px;
+      font-weight: 800;
       color: var(--teal);
-      font-weight: 600;
     }
     
-    .date-btn.peak .price {
+    .ticket-type-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    
+    .peak-note {
+      display: inline-block;
+      background: rgba(255, 79, 216, 0.2);
       color: var(--pink);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      margin-top: 8px;
     }
     
     /* Quantity */
@@ -171,6 +186,7 @@
       color: var(--text-dim);
       font-size: 13px;
       font-weight: 400;
+      display: block;
     }
     
     .quantity-control {
@@ -180,13 +196,13 @@
     }
     
     .qty-btn {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       border: 2px solid var(--border);
       background: var(--surface2);
       color: var(--text);
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
@@ -200,10 +216,42 @@
     }
     
     .qty-num {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
-      min-width: 40px;
+      min-width: 50px;
       text-align: center;
+    }
+    
+    /* Info Box */
+    .info-box {
+      background: rgba(6, 214, 160, 0.1);
+      border: 1px solid rgba(6, 214, 160, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .info-box h4 {
+      color: var(--teal);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    
+    .info-box p {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin: 0;
+    }
+    
+    .info-box ul {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin: 8px 0 0 0;
+      padding-left: 20px;
+    }
+    
+    .info-box li {
+      margin-bottom: 4px;
     }
     
     /* Wallet Buttons */
@@ -333,7 +381,7 @@
     }
     
     .summary-row.total {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
       padding-top: 16px;
     }
@@ -375,26 +423,6 @@
       margin-right: 6px;
     }
     
-    /* SMS Option */
-    .checkbox-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    
-    .checkbox-row input {
-      width: 20px;
-      height: 20px;
-      margin-top: 2px;
-      accent-color: var(--teal);
-    }
-    
-    .checkbox-row label {
-      font-size: 14px;
-      color: var(--text-dim);
-    }
-    
     /* Promo Code */
     .promo-toggle {
       color: var(--purple);
@@ -418,10 +446,6 @@
       display: flex;
     }
     
-    .promo-row input {
-      flex: 1;
-    }
-    
     .promo-btn {
       padding: 14px 20px;
       border-radius: 10px;
@@ -435,6 +459,177 @@
     .promo-btn:hover {
       background: rgba(168, 85, 247, 0.1);
     }
+    
+    /* ============ REDEEM PAGE ============ */
+    
+    /* Venue Selector */
+    .venue-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    .venue-btn {
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 12px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .venue-btn:hover {
+      border-color: var(--purple);
+      background: rgba(168, 85, 247, 0.1);
+    }
+    
+    .venue-btn.selected {
+      border-color: var(--teal);
+      background: rgba(6, 214, 160, 0.15);
+      box-shadow: 0 0 20px rgba(6, 214, 160, 0.2);
+    }
+    
+    .venue-btn .city {
+      font-size: 15px;
+      font-weight: 700;
+    }
+    
+    .venue-btn .region {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+    
+    /* Date Picker */
+    .date-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    
+    .date-btn {
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 6px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .date-btn:hover {
+      border-color: var(--purple);
+    }
+    
+    .date-btn.selected {
+      border-color: var(--teal);
+      background: rgba(6, 214, 160, 0.15);
+    }
+    
+    .date-btn .day {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    
+    .date-btn .num {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    
+    .date-btn .avail {
+      font-size: 10px;
+      color: var(--teal);
+    }
+    
+    .date-btn.limited .avail {
+      color: var(--pink);
+    }
+    
+    /* Redeem lookup */
+    .lookup-form {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .lookup-form input {
+      flex: 1;
+    }
+    
+    .lookup-btn {
+      padding: 14px 24px;
+      border-radius: 10px;
+      border: none;
+      background: var(--purple);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    /* Ticket display */
+    .ticket-card {
+      background: linear-gradient(135deg, var(--surface), var(--surface2));
+      border: 2px solid var(--teal);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .ticket-card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    
+    .ticket-card .count {
+      font-size: 48px;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .ticket-card .label {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+    
+    /* QR Code area */
+    .qr-area {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .qr-placeholder {
+      width: 180px;
+      height: 180px;
+      background: #eee;
+      margin: 0 auto 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .qr-info {
+      color: #333;
+      font-size: 14px;
+    }
+    
+    .qr-info strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
   </style>
 </head>
 <body>
@@ -445,196 +640,317 @@
       <div class="tagline">Texas's #1 Drive-Thru Light Show</div>
     </header>
     
-    <!-- Venue Selection -->
-    <div class="card">
-      <div class="card-title">📍 Select Location</div>
-      <div class="venue-grid">
-        <button class="venue-btn selected" onclick="selectVenue(this)">Austin</button>
-        <button class="venue-btn" onclick="selectVenue(this)">Houston</button>
-        <button class="venue-btn" onclick="selectVenue(this)">San Antonio</button>
-        <button class="venue-btn" onclick="selectVenue(this)">Dallas</button>
-        <button class="venue-btn" onclick="selectVenue(this)">Katy</button>
-        <button class="venue-btn" onclick="selectVenue(this)">Frisco</button>
-        <button class="venue-btn" onclick="selectVenue(this)">Spring</button>
-        <button class="venue-btn" onclick="selectVenue(this)">Pearland</button>
-      </div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" onclick="showPage('buy')">🎫 Buy Tickets</div>
+      <div class="tab" onclick="showPage('redeem')">📱 Redeem</div>
     </div>
     
-    <!-- Date Selection -->
-    <div class="card">
-      <div class="card-title">📅 Select Date</div>
-      <div class="date-grid">
-        <button class="date-btn" onclick="selectDate(this, 45)">
-          <div class="day">Thu</div>
-          <div class="num">12</div>
-          <div class="price">$45</div>
-        </button>
-        <button class="date-btn peak" onclick="selectDate(this, 55)">
-          <div class="day">Fri</div>
-          <div class="num">13</div>
-          <div class="price">$55</div>
-        </button>
-        <button class="date-btn peak selected" onclick="selectDate(this, 55)">
-          <div class="day">Sat</div>
-          <div class="num">14</div>
-          <div class="price">$55</div>
-        </button>
-        <button class="date-btn" onclick="selectDate(this, 45)">
-          <div class="day">Sun</div>
-          <div class="num">15</div>
-          <div class="price">$45</div>
-        </button>
-        <button class="date-btn" onclick="selectDate(this, 45)">
-          <div class="day">Mon</div>
-          <div class="num">16</div>
-          <div class="price">$45</div>
-        </button>
-        <button class="date-btn" onclick="selectDate(this, 45)">
-          <div class="day">Tue</div>
-          <div class="num">17</div>
-          <div class="price">$45</div>
-        </button>
-        <button class="date-btn" onclick="selectDate(this, 45)">
-          <div class="day">Wed</div>
-          <div class="num">18</div>
-          <div class="price">$45</div>
-        </button>
-        <button class="date-btn peak" onclick="selectDate(this, 55)">
-          <div class="day">Thu</div>
-          <div class="num">19</div>
-          <div class="price">$55</div>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Quantity -->
-    <div class="card">
-      <div class="quantity-row">
-        <div class="quantity-label">
-          🚗 Tickets <span>(1 ticket = 1 car)</span>
-        </div>
-        <div class="quantity-control">
-          <button class="qty-btn" onclick="changeQty(-1)">−</button>
-          <div class="qty-num" id="qty">1</div>
-          <button class="qty-btn" onclick="changeQty(1)">+</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Payment -->
-    <div class="card">
-      <div class="card-title">💳 Payment</div>
+    <!-- ========== BUY PAGE ========== -->
+    <div class="page active" id="buyPage">
       
-      <!-- Wallet Buttons -->
-      <button class="wallet-btn apple-pay">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-        Apple Pay
+      <!-- Ticket Types -->
+      <div class="card">
+        <div class="card-title">🎫 Select Ticket Type</div>
+        
+        <div class="ticket-type selected" onclick="selectTicketType(this, 45)">
+          <div class="ticket-type-header">
+            <div class="ticket-type-name">Regular Admission</div>
+            <div class="ticket-type-price">$45</div>
+          </div>
+          <div class="ticket-type-desc">Valid any weekday (Mon–Thu)</div>
+        </div>
+        
+        <div class="ticket-type" onclick="selectTicketType(this, 55)">
+          <div class="ticket-type-header">
+            <div class="ticket-type-name">Peak Admission</div>
+            <div class="ticket-type-price">$55</div>
+          </div>
+          <div class="ticket-type-desc">Valid any day including weekends</div>
+          <div class="peak-note">🔥 Fri, Sat, Sun & Holidays</div>
+        </div>
+      </div>
+      
+      <!-- Quantity -->
+      <div class="card">
+        <div class="quantity-row">
+          <div class="quantity-label">
+            How many tickets?
+            <span>1 ticket = 1 car, any location</span>
+          </div>
+          <div class="quantity-control">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <div class="qty-num" id="qty">1</div>
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- How It Works -->
+      <div class="info-box">
+        <h4>🎁 How It Works</h4>
+        <ul>
+          <li>Buy tickets now — pick location & date later</li>
+          <li>Perfect for gifts!</li>
+          <li>Valid at any of our 8 Texas locations</li>
+          <li>Redeem anytime during the 2026 season</li>
+        </ul>
+      </div>
+      
+      <!-- Payment -->
+      <div class="card">
+        <div class="card-title">💳 Payment</div>
+        
+        <!-- Wallet Buttons -->
+        <button class="wallet-btn apple-pay">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          Apple Pay
+        </button>
+        
+        <button class="wallet-btn google-pay">
+          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Google Pay
+        </button>
+        
+        <div class="divider"><span>or pay with card</span></div>
+        
+        <!-- Card Form -->
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="you@email.com">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Card Number</label>
+          <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Expiry</label>
+            <input type="text" class="form-input" placeholder="MM / YY">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVC</label>
+            <input type="text" class="form-input" placeholder="123">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Name on Card</label>
+          <input type="text" class="form-input" placeholder="John Smith">
+        </div>
+        
+        <span class="promo-toggle" onclick="togglePromo()">+ Add promo code</span>
+        <div class="promo-row" id="promoRow">
+          <input type="text" class="form-input" placeholder="Enter code">
+          <button class="promo-btn">Apply</button>
+        </div>
+      </div>
+      
+      <!-- Policy Notice -->
+      <div class="policy-notice">
+        <strong>⚠️ All Sales Final</strong>
+        No refunds or exchanges. Redeem at any location during the 2026 season.
+      </div>
+      
+      <!-- Order Summary -->
+      <div class="card">
+        <div class="card-title">🧾 Order Summary</div>
+        <div class="summary-row">
+          <span id="ticketTypeLabel">Regular Admission</span>
+          <span id="summaryQty">× 1</span>
+        </div>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="subtotal">$45.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Service Fee</span>
+          <span id="fee">$1.35</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span class="amount" id="total">$46.35</span>
+        </div>
+      </div>
+      
+      <!-- Submit -->
+      <button class="submit-btn" onclick="submitOrder()">
+        Buy Tickets — $46.35
       </button>
       
-      <button class="wallet-btn google-pay">
-        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Google Pay
-      </button>
-      
-      <div class="divider"><span>or pay with card</span></div>
-      
-      <!-- Card Form -->
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="you@email.com">
+      <!-- Security -->
+      <div class="security">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        Secured by Stripe
       </div>
+    </div>
+    
+    <!-- ========== REDEEM PAGE ========== -->
+    <div class="page" id="redeemPage">
       
-      <div class="form-group">
-        <label class="form-label">Card Number</label>
-        <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
-      </div>
-      
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Expiry</label>
-          <input type="text" class="form-input" placeholder="MM / YY">
-        </div>
-        <div class="form-group">
-          <label class="form-label">CVC</label>
-          <input type="text" class="form-input" placeholder="123">
+      <!-- Lookup -->
+      <div class="card">
+        <div class="card-title">🔍 Find Your Tickets</div>
+        <div class="lookup-form">
+          <input type="text" class="form-input" placeholder="Order # or email">
+          <button class="lookup-btn" onclick="lookupOrder()">Find</button>
         </div>
       </div>
       
-      <div class="form-group">
-        <label class="form-label">Name on Card</label>
-        <input type="text" class="form-input" placeholder="John Smith">
+      <!-- Ticket Display (shown after lookup) -->
+      <div id="ticketDisplay" style="display: none;">
+        <div class="ticket-card">
+          <h3>Your Tickets</h3>
+          <div class="count">2</div>
+          <div class="label">Peak Admission tickets to redeem</div>
+        </div>
+        
+        <!-- Select Location -->
+        <div class="card">
+          <div class="card-title">📍 Select Location</div>
+          <div class="venue-grid">
+            <button class="venue-btn" onclick="selectVenue(this)">
+              <div class="city">Austin</div>
+              <div class="region">Central TX</div>
+            </button>
+            <button class="venue-btn" onclick="selectVenue(this)">
+              <div class="city">Houston</div>
+              <div class="region">Gulf Coast</div>
+            </button>
+            <button class="venue-btn" onclick="selectVenue(this)">
+              <div class="city">San Antonio</div>
+              <div class="region">South TX</div>
+            </button>
+            <button class="venue-btn selected" onclick="selectVenue(this)">
+              <div class="city">Dallas</div>
+              <div class="region">North TX</div>
+            </button>
+            <button class="venue-btn" onclick="selectVenue(this)">
+              <div class="city">Katy</div>
+              <div class="region">Houston Area</div>
+            </button>
+            <button class="venue-btn" onclick="selectVenue(this)">
+              <div class="city">Frisco</div>
+              <div class="region">Dallas Area</div>
+            </button>
+            <button class="venue-btn" onclick="selectVenue(this)">
+              <div class="city">Spring</div>
+              <div class="region">Houston Area</div>
+            </button>
+            <button class="venue-btn" onclick="selectVenue(this)">
+              <div class="city">Pearland</div>
+              <div class="region">Houston Area</div>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Select Date -->
+        <div class="card">
+          <div class="card-title">📅 Select Date</div>
+          <div class="date-grid">
+            <button class="date-btn" onclick="selectDate(this)">
+              <div class="day">Fri</div>
+              <div class="num">13</div>
+              <div class="avail">Available</div>
+            </button>
+            <button class="date-btn selected" onclick="selectDate(this)">
+              <div class="day">Sat</div>
+              <div class="num">14</div>
+              <div class="avail">Available</div>
+            </button>
+            <button class="date-btn" onclick="selectDate(this)">
+              <div class="day">Sun</div>
+              <div class="num">15</div>
+              <div class="avail">Available</div>
+            </button>
+            <button class="date-btn limited" onclick="selectDate(this)">
+              <div class="day">Mon</div>
+              <div class="num">16</div>
+              <div class="avail">Few left!</div>
+            </button>
+            <button class="date-btn" onclick="selectDate(this)">
+              <div class="day">Tue</div>
+              <div class="num">17</div>
+              <div class="avail">Available</div>
+            </button>
+            <button class="date-btn" onclick="selectDate(this)">
+              <div class="day">Wed</div>
+              <div class="num">18</div>
+              <div class="avail">Available</div>
+            </button>
+            <button class="date-btn" onclick="selectDate(this)">
+              <div class="day">Thu</div>
+              <div class="num">19</div>
+              <div class="avail">Available</div>
+            </button>
+            <button class="date-btn" onclick="selectDate(this)">
+              <div class="day">Fri</div>
+              <div class="num">20</div>
+              <div class="avail">Available</div>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Confirm Button -->
+        <button class="submit-btn" onclick="confirmRedemption()">
+          Get My QR Code
+        </button>
       </div>
       
-      <div class="checkbox-row">
-        <input type="checkbox" id="sms">
-        <label for="sms">Text me my tickets (optional)<br><span style="font-size: 12px;">We'll send your QR code via SMS</span></label>
+      <!-- QR Code Display (shown after confirmation) -->
+      <div id="qrDisplay" style="display: none;">
+        <div class="ticket-card">
+          <h3>You're All Set! 🎉</h3>
+          <div class="count">2</div>
+          <div class="label">tickets for Dallas · Sat, Dec 14</div>
+        </div>
+        
+        <div class="qr-area">
+          <div class="qr-placeholder">[QR Code]</div>
+          <div class="qr-info">
+            <strong>Order #TLP-2026-48291</strong>
+            Show this at the entrance gate
+          </div>
+        </div>
+        
+        <div class="info-box">
+          <h4>📧 Confirmation Sent!</h4>
+          <p>We emailed your tickets to john@email.com. You can also screenshot this QR code.</p>
+        </div>
+        
+        <button class="submit-btn" style="background: var(--surface); color: var(--text); border: 2px solid var(--border); box-shadow: none;" onclick="addToWallet()">
+          Add to Apple Wallet
+        </button>
       </div>
       
-      <div class="form-group" id="phoneGroup" style="display: none;">
-        <label class="form-label">Phone Number</label>
-        <input type="tel" class="form-input" placeholder="(555) 123-4567">
-      </div>
-      
-      <span class="promo-toggle" onclick="togglePromo()">+ Add promo code</span>
-      <div class="promo-row" id="promoRow">
-        <input type="text" class="form-input" placeholder="Enter code">
-        <button class="promo-btn">Apply</button>
-      </div>
-    </div>
-    
-    <!-- Policy Notice -->
-    <div class="policy-notice">
-      <strong>⚠️ All Sales Final</strong>
-      No refunds or exchanges. Tickets valid only for selected date.
-    </div>
-    
-    <!-- Order Summary -->
-    <div class="card">
-      <div class="card-title">🧾 Order Summary</div>
-      <div class="summary-row">
-        <span>Austin · Sat, Dec 14</span>
-        <span id="summaryQty">1 ticket</span>
-      </div>
-      <div class="summary-row">
-        <span>Subtotal</span>
-        <span id="subtotal">$55.00</span>
-      </div>
-      <div class="summary-row">
-        <span>Service Fee</span>
-        <span id="fee">$1.65</span>
-      </div>
-      <div class="summary-row total">
-        <span>Total</span>
-        <span class="amount" id="total">$56.65</span>
-      </div>
-    </div>
-    
-    <!-- Submit -->
-    <button class="submit-btn" onclick="submitOrder()">
-      Complete Purchase — $56.65
-    </button>
-    
-    <!-- Security -->
-    <div class="security">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-      Secured by Stripe
     </div>
   </div>
   
   <script>
-    let selectedPrice = 55;
+    let selectedPrice = 45;
     let quantity = 1;
+    let ticketTypeName = 'Regular Admission';
     
-    function selectVenue(btn) {
-      document.querySelectorAll('.venue-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      updateSummary();
+    function showPage(page) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      
+      if (page === 'buy') {
+        document.querySelector('.tab:first-child').classList.add('active');
+        document.getElementById('buyPage').classList.add('active');
+      } else {
+        document.querySelector('.tab:last-child').classList.add('active');
+        document.getElementById('redeemPage').classList.add('active');
+      }
     }
     
-    function selectDate(btn, price) {
-      document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
+    function selectTicketType(el, price) {
+      document.querySelectorAll('.ticket-type').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
       selectedPrice = price;
+      ticketTypeName = el.querySelector('.ticket-type-name').textContent;
       updateSummary();
     }
     
@@ -649,23 +965,44 @@
       const fee = (subtotal * 0.03).toFixed(2);
       const total = (subtotal + parseFloat(fee)).toFixed(2);
       
-      document.getElementById('summaryQty').textContent = quantity + ' ticket' + (quantity > 1 ? 's' : '');
+      document.getElementById('ticketTypeLabel').textContent = ticketTypeName;
+      document.getElementById('summaryQty').textContent = '× ' + quantity;
       document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
       document.getElementById('fee').textContent = '$' + fee;
       document.getElementById('total').textContent = '$' + total;
-      document.querySelector('.submit-btn').textContent = 'Complete Purchase — $' + total;
+      document.querySelector('.submit-btn').textContent = 'Buy Tickets — $' + total;
     }
     
     function togglePromo() {
       document.getElementById('promoRow').classList.toggle('show');
     }
     
-    document.getElementById('sms').addEventListener('change', function() {
-      document.getElementById('phoneGroup').style.display = this.checked ? 'block' : 'none';
-    });
-    
     function submitOrder() {
-      alert('This is a prototype! In production, this would create a Stripe Checkout session.');
+      alert('This is a prototype! In production, this would create a Stripe Checkout session and email your ticket vouchers.');
+    }
+    
+    // Redeem page functions
+    function lookupOrder() {
+      document.getElementById('ticketDisplay').style.display = 'block';
+    }
+    
+    function selectVenue(btn) {
+      document.querySelectorAll('.venue-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+    
+    function selectDate(btn) {
+      document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+    
+    function confirmRedemption() {
+      document.getElementById('ticketDisplay').style.display = 'none';
+      document.getElementById('qrDisplay').style.display = 'block';
+    }
+    
+    function addToWallet() {
+      alert('This would generate an Apple Wallet pass!');
     }
   </script>
 </body>
