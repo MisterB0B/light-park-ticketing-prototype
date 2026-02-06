@@ -460,6 +460,79 @@
       background: rgba(168, 85, 247, 0.1);
     }
     
+    /* Add-ons */
+    .addon-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .addon-item:hover {
+      border-color: var(--purple);
+    }
+    
+    .addon-item.selected {
+      border-color: var(--teal);
+      background: rgba(6, 214, 160, 0.1);
+    }
+    
+    .addon-check {
+      flex-shrink: 0;
+    }
+    
+    .checkbox {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.2s;
+      position: relative;
+    }
+    
+    .addon-item.selected .checkbox {
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+    
+    .addon-item.selected .checkbox::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .addon-info {
+      flex: 1;
+    }
+    
+    .addon-name {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+    
+    .addon-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    
+    .addon-price {
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 16px;
+    }
+    
     /* ============ REDEEM PAGE ============ */
     
     /* Venue Selector */
@@ -683,6 +756,44 @@
             <div class="qty-num" id="qty">1</div>
             <button class="qty-btn" onclick="changeQty(1)">+</button>
           </div>
+        </div>
+      </div>
+      
+      <!-- Add-ons -->
+      <div class="card">
+        <div class="card-title">🎁 Add to Your Experience</div>
+        
+        <div class="addon-item" onclick="toggleAddon(this, 25)">
+          <div class="addon-check">
+            <div class="checkbox"></div>
+          </div>
+          <div class="addon-info">
+            <div class="addon-name">Blitzen Bundle</div>
+            <div class="addon-desc">S'mores kit, light wands, hot cocoa & magic glasses for the whole car</div>
+          </div>
+          <div class="addon-price">+$25</div>
+        </div>
+        
+        <div class="addon-item" onclick="toggleAddon(this, 15)">
+          <div class="addon-check">
+            <div class="checkbox"></div>
+          </div>
+          <div class="addon-info">
+            <div class="addon-name">Light Wand Pack</div>
+            <div class="addon-desc">4 LED light wands to wave during the show</div>
+          </div>
+          <div class="addon-price">+$15</div>
+        </div>
+        
+        <div class="addon-item" onclick="toggleAddon(this, 10)">
+          <div class="addon-check">
+            <div class="checkbox"></div>
+          </div>
+          <div class="addon-info">
+            <div class="addon-name">Magic Glasses</div>
+            <div class="addon-desc">4 pairs of holographic glasses that make lights sparkle</div>
+          </div>
+          <div class="addon-price">+$10</div>
         </div>
       </div>
       
@@ -932,6 +1043,7 @@
     let selectedPrice = 45;
     let quantity = 1;
     let ticketTypeName = 'Regular Admission';
+    let addonsTotal = 0;
     
     function showPage(page) {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -960,8 +1072,22 @@
       updateSummary();
     }
     
+    function toggleAddon(el, price) {
+      el.classList.toggle('selected');
+      
+      // Recalculate addons total
+      addonsTotal = 0;
+      document.querySelectorAll('.addon-item.selected').forEach(item => {
+        const priceText = item.querySelector('.addon-price').textContent;
+        addonsTotal += parseInt(priceText.replace(/[^0-9]/g, ''));
+      });
+      
+      updateSummary();
+    }
+    
     function updateSummary() {
-      const subtotal = selectedPrice * quantity;
+      const ticketSubtotal = selectedPrice * quantity;
+      const subtotal = ticketSubtotal + addonsTotal;
       const fee = (subtotal * 0.03).toFixed(2);
       const total = (subtotal + parseFloat(fee)).toFixed(2);
       
