@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Tickets | The Light Park</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a14;
+      --surface: #12121f;
+      --surface2: #1a1a2e;
+      --border: #2a2a4a;
+      --text: #ffffff;
+      --text-dim: #8888aa;
+      --purple: #a855f7;
+      --teal: #06d6a0;
+      --pink: #ff4fd8;
+      --gradient: linear-gradient(135deg, #a855f7, #06d6a0);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 30px 0;
+    }
+    
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    
+    .tagline {
+      color: var(--text-dim);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    
+    /* Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+    
+    /* Venue Selector */
+    .venue-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    .venue-btn {
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .venue-btn:hover {
+      border-color: var(--purple);
+      background: rgba(168, 85, 247, 0.1);
+    }
+    
+    .venue-btn.selected {
+      border-color: var(--teal);
+      background: rgba(6, 214, 160, 0.15);
+      box-shadow: 0 0 20px rgba(6, 214, 160, 0.2);
+    }
+    
+    /* Date Picker */
+    .date-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    
+    .date-btn {
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 6px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .date-btn:hover {
+      border-color: var(--purple);
+    }
+    
+    .date-btn.selected {
+      border-color: var(--teal);
+      background: rgba(6, 214, 160, 0.15);
+    }
+    
+    .date-btn .day {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    
+    .date-btn .num {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    
+    .date-btn .price {
+      font-size: 11px;
+      color: var(--teal);
+      font-weight: 600;
+    }
+    
+    .date-btn.peak .price {
+      color: var(--pink);
+    }
+    
+    /* Quantity */
+    .quantity-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .quantity-label {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .quantity-label span {
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 400;
+    }
+    
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .qty-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .qty-btn:hover {
+      border-color: var(--purple);
+      background: rgba(168, 85, 247, 0.1);
+    }
+    
+    .qty-num {
+      font-size: 24px;
+      font-weight: 700;
+      min-width: 40px;
+      text-align: center;
+    }
+    
+    /* Wallet Buttons */
+    .wallet-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+    
+    .apple-pay {
+      background: #000;
+      color: #fff;
+      border: 1px solid #333;
+    }
+    
+    .apple-pay:hover {
+      background: #1a1a1a;
+    }
+    
+    .google-pay {
+      background: #fff;
+      color: #000;
+    }
+    
+    .google-pay:hover {
+      background: #f0f0f0;
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    
+    .divider span {
+      padding: 0 16px;
+    }
+    
+    /* Form */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 16px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    }
+    
+    .form-input::placeholder {
+      color: var(--text-dim);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    /* Policy Notice */
+    .policy-notice {
+      background: rgba(255, 79, 216, 0.1);
+      border: 1px solid rgba(255, 79, 216, 0.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--pink);
+      margin-bottom: 16px;
+    }
+    
+    .policy-notice strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+    
+    /* Order Summary */
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+    
+    .summary-row.total {
+      font-size: 18px;
+      font-weight: 700;
+      padding-top: 16px;
+    }
+    
+    .summary-row.total .amount {
+      color: var(--teal);
+    }
+    
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      border-radius: 12px;
+      border: none;
+      background: var(--gradient);
+      color: #000;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(168, 85, 247, 0.5);
+    }
+    
+    /* Security Badge */
+    .security {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+    
+    .security svg {
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    
+    /* SMS Option */
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .checkbox-row input {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: var(--teal);
+    }
+    
+    .checkbox-row label {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    
+    /* Promo Code */
+    .promo-toggle {
+      color: var(--purple);
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    
+    .promo-toggle:hover {
+      text-decoration: underline;
+    }
+    
+    .promo-row {
+      display: none;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    
+    .promo-row.show {
+      display: flex;
+    }
+    
+    .promo-row input {
+      flex: 1;
+    }
+    
+    .promo-btn {
+      padding: 14px 20px;
+      border-radius: 10px;
+      border: 2px solid var(--purple);
+      background: transparent;
+      color: var(--purple);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    
+    .promo-btn:hover {
+      background: rgba(168, 85, 247, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">THE LIGHT PARK</div>
+      <div class="tagline">Texas's #1 Drive-Thru Light Show</div>
+    </header>
+    
+    <!-- Venue Selection -->
+    <div class="card">
+      <div class="card-title">📍 Select Location</div>
+      <div class="venue-grid">
+        <button class="venue-btn selected" onclick="selectVenue(this)">Austin</button>
+        <button class="venue-btn" onclick="selectVenue(this)">Houston</button>
+        <button class="venue-btn" onclick="selectVenue(this)">San Antonio</button>
+        <button class="venue-btn" onclick="selectVenue(this)">Dallas</button>
+        <button class="venue-btn" onclick="selectVenue(this)">Katy</button>
+        <button class="venue-btn" onclick="selectVenue(this)">Frisco</button>
+        <button class="venue-btn" onclick="selectVenue(this)">Spring</button>
+        <button class="venue-btn" onclick="selectVenue(this)">Pearland</button>
+      </div>
+    </div>
+    
+    <!-- Date Selection -->
+    <div class="card">
+      <div class="card-title">📅 Select Date</div>
+      <div class="date-grid">
+        <button class="date-btn" onclick="selectDate(this, 45)">
+          <div class="day">Thu</div>
+          <div class="num">12</div>
+          <div class="price">$45</div>
+        </button>
+        <button class="date-btn peak" onclick="selectDate(this, 55)">
+          <div class="day">Fri</div>
+          <div class="num">13</div>
+          <div class="price">$55</div>
+        </button>
+        <button class="date-btn peak selected" onclick="selectDate(this, 55)">
+          <div class="day">Sat</div>
+          <div class="num">14</div>
+          <div class="price">$55</div>
+        </button>
+        <button class="date-btn" onclick="selectDate(this, 45)">
+          <div class="day">Sun</div>
+          <div class="num">15</div>
+          <div class="price">$45</div>
+        </button>
+        <button class="date-btn" onclick="selectDate(this, 45)">
+          <div class="day">Mon</div>
+          <div class="num">16</div>
+          <div class="price">$45</div>
+        </button>
+        <button class="date-btn" onclick="selectDate(this, 45)">
+          <div class="day">Tue</div>
+          <div class="num">17</div>
+          <div class="price">$45</div>
+        </button>
+        <button class="date-btn" onclick="selectDate(this, 45)">
+          <div class="day">Wed</div>
+          <div class="num">18</div>
+          <div class="price">$45</div>
+        </button>
+        <button class="date-btn peak" onclick="selectDate(this, 55)">
+          <div class="day">Thu</div>
+          <div class="num">19</div>
+          <div class="price">$55</div>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Quantity -->
+    <div class="card">
+      <div class="quantity-row">
+        <div class="quantity-label">
+          🚗 Tickets <span>(1 ticket = 1 car)</span>
+        </div>
+        <div class="quantity-control">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <div class="qty-num" id="qty">1</div>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Payment -->
+    <div class="card">
+      <div class="card-title">💳 Payment</div>
+      
+      <!-- Wallet Buttons -->
+      <button class="wallet-btn apple-pay">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        Apple Pay
+      </button>
+      
+      <button class="wallet-btn google-pay">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Google Pay
+      </button>
+      
+      <div class="divider"><span>or pay with card</span></div>
+      
+      <!-- Card Form -->
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="you@email.com">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Card Number</label>
+        <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Expiry</label>
+          <input type="text" class="form-input" placeholder="MM / YY">
+        </div>
+        <div class="form-group">
+          <label class="form-label">CVC</label>
+          <input type="text" class="form-input" placeholder="123">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Name on Card</label>
+        <input type="text" class="form-input" placeholder="John Smith">
+      </div>
+      
+      <div class="checkbox-row">
+        <input type="checkbox" id="sms">
+        <label for="sms">Text me my tickets (optional)<br><span style="font-size: 12px;">We'll send your QR code via SMS</span></label>
+      </div>
+      
+      <div class="form-group" id="phoneGroup" style="display: none;">
+        <label class="form-label">Phone Number</label>
+        <input type="tel" class="form-input" placeholder="(555) 123-4567">
+      </div>
+      
+      <span class="promo-toggle" onclick="togglePromo()">+ Add promo code</span>
+      <div class="promo-row" id="promoRow">
+        <input type="text" class="form-input" placeholder="Enter code">
+        <button class="promo-btn">Apply</button>
+      </div>
+    </div>
+    
+    <!-- Policy Notice -->
+    <div class="policy-notice">
+      <strong>⚠️ All Sales Final</strong>
+      No refunds or exchanges. Tickets valid only for selected date.
+    </div>
+    
+    <!-- Order Summary -->
+    <div class="card">
+      <div class="card-title">🧾 Order Summary</div>
+      <div class="summary-row">
+        <span>Austin · Sat, Dec 14</span>
+        <span id="summaryQty">1 ticket</span>
+      </div>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotal">$55.00</span>
+      </div>
+      <div class="summary-row">
+        <span>Service Fee</span>
+        <span id="fee">$1.65</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span class="amount" id="total">$56.65</span>
+      </div>
+    </div>
+    
+    <!-- Submit -->
+    <button class="submit-btn" onclick="submitOrder()">
+      Complete Purchase — $56.65
+    </button>
+    
+    <!-- Security -->
+    <div class="security">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+      Secured by Stripe
+    </div>
+  </div>
+  
+  <script>
+    let selectedPrice = 55;
+    let quantity = 1;
+    
+    function selectVenue(btn) {
+      document.querySelectorAll('.venue-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateSummary();
+    }
+    
+    function selectDate(btn, price) {
+      document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedPrice = price;
+      updateSummary();
+    }
+    
+    function changeQty(delta) {
+      quantity = Math.max(1, Math.min(10, quantity + delta));
+      document.getElementById('qty').textContent = quantity;
+      updateSummary();
+    }
+    
+    function updateSummary() {
+      const subtotal = selectedPrice * quantity;
+      const fee = (subtotal * 0.03).toFixed(2);
+      const total = (subtotal + parseFloat(fee)).toFixed(2);
+      
+      document.getElementById('summaryQty').textContent = quantity + ' ticket' + (quantity > 1 ? 's' : '');
+      document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+      document.getElementById('fee').textContent = '$' + fee;
+      document.getElementById('total').textContent = '$' + total;
+      document.querySelector('.submit-btn').textContent = 'Complete Purchase — $' + total;
+    }
+    
+    function togglePromo() {
+      document.getElementById('promoRow').classList.toggle('show');
+    }
+    
+    document.getElementById('sms').addEventListener('change', function() {
+      document.getElementById('phoneGroup').style.display = this.checked ? 'block' : 'none';
+    });
+    
+    function submitOrder() {
+      alert('This is a prototype! In production, this would create a Stripe Checkout session.');
+    }
+  </script>
+</body>
+</html>
