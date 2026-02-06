@@ -575,6 +575,47 @@
       color: var(--text-dim);
     }
     
+    /* Peak Notice */
+    .peak-notice {
+      background: rgba(255, 79, 216, 0.15);
+      border: 2px solid var(--pink);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .peak-notice-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .peak-icon {
+      font-size: 28px;
+    }
+    
+    .peak-notice strong {
+      color: var(--pink);
+      font-size: 14px;
+    }
+    
+    .peak-notice p {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin: 2px 0 0 0;
+    }
+    
+    .peak-price {
+      margin-left: auto;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--pink);
+    }
+    
+    .date-btn.peak .avail {
+      color: var(--pink);
+    }
+    
     /* ============ REDEEM PAGE ============ */
     
     /* Venue Selector */
@@ -767,9 +808,12 @@
       <!-- Ticket Info -->
       <div class="card" style="text-align: center; padding: 30px;">
         <div style="font-size: 48px; margin-bottom: 8px;">🚗</div>
-        <div style="font-size: 28px; font-weight: 800; margin-bottom: 4px;">$49.99</div>
+        <div style="font-size: 28px; font-weight: 800; margin-bottom: 4px;">$39.99</div>
         <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">per vehicle</div>
-        <div style="font-size: 13px; color: var(--text-dim);">One ticket = One car (any # of passengers)<br>Valid at any location during 2026 season</div>
+        <div style="font-size: 13px; color: var(--text-dim);">One ticket = One car (any # of passengers)<br>Valid at any of our 8 Texas locations</div>
+        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--pink);">
+          💡 Peak dates (Fri-Sun & holidays) are +$15 at redemption
+        </div>
       </div>
       
       <!-- Quantity -->
@@ -1072,52 +1116,64 @@
         <div class="card">
           <div class="card-title">📅 Select Date</div>
           <div class="date-grid">
-            <button class="date-btn" onclick="selectDate(this)">
+            <button class="date-btn peak" onclick="selectRedeemDate(this, true)">
               <div class="day">Fri</div>
               <div class="num">13</div>
-              <div class="avail">Available</div>
+              <div class="avail">+$15</div>
             </button>
-            <button class="date-btn selected" onclick="selectDate(this)">
+            <button class="date-btn peak" onclick="selectRedeemDate(this, true)">
               <div class="day">Sat</div>
               <div class="num">14</div>
-              <div class="avail">Available</div>
+              <div class="avail">+$15</div>
             </button>
-            <button class="date-btn" onclick="selectDate(this)">
+            <button class="date-btn peak" onclick="selectRedeemDate(this, true)">
               <div class="day">Sun</div>
               <div class="num">15</div>
-              <div class="avail">Available</div>
+              <div class="avail">+$15</div>
             </button>
-            <button class="date-btn limited" onclick="selectDate(this)">
+            <button class="date-btn" onclick="selectRedeemDate(this, false)">
               <div class="day">Mon</div>
               <div class="num">16</div>
-              <div class="avail">Few left!</div>
+              <div class="avail">Included</div>
             </button>
-            <button class="date-btn" onclick="selectDate(this)">
+            <button class="date-btn" onclick="selectRedeemDate(this, false)">
               <div class="day">Tue</div>
               <div class="num">17</div>
-              <div class="avail">Available</div>
+              <div class="avail">Included</div>
             </button>
-            <button class="date-btn" onclick="selectDate(this)">
+            <button class="date-btn" onclick="selectRedeemDate(this, false)">
               <div class="day">Wed</div>
               <div class="num">18</div>
-              <div class="avail">Available</div>
+              <div class="avail">Included</div>
             </button>
-            <button class="date-btn" onclick="selectDate(this)">
+            <button class="date-btn" onclick="selectRedeemDate(this, false)">
               <div class="day">Thu</div>
               <div class="num">19</div>
-              <div class="avail">Available</div>
+              <div class="avail">Included</div>
             </button>
-            <button class="date-btn" onclick="selectDate(this)">
+            <button class="date-btn peak" onclick="selectRedeemDate(this, true)">
               <div class="day">Fri</div>
               <div class="num">20</div>
-              <div class="avail">Available</div>
+              <div class="avail">+$15</div>
             </button>
           </div>
         </div>
         
+        <!-- Peak Surcharge Notice -->
+        <div class="peak-notice" id="peakNotice" style="display: none;">
+          <div class="peak-notice-content">
+            <span class="peak-icon">🔥</span>
+            <div>
+              <strong>Peak Date Selected</strong>
+              <p>Weekend/holiday dates require a $15 upgrade per ticket</p>
+            </div>
+            <div class="peak-price">+$30</div>
+          </div>
+        </div>
+        
         <!-- Confirm Button -->
-        <button class="submit-btn" onclick="confirmRedemption()">
-          Get My QR Code
+        <button class="submit-btn" id="redeemBtn" onclick="confirmRedemption()">
+          Get My QR Code — Included ✓
         </button>
       </div>
       
@@ -1151,7 +1207,7 @@
   </div>
   
   <script>
-    let selectedPrice = 49.99;
+    let selectedPrice = 39.99;
     let quantity = 1;
     let addonsTotal = 0;
     
@@ -1228,6 +1284,26 @@
     function selectDate(btn) {
       document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
+    }
+    
+    function selectRedeemDate(btn, isPeak) {
+      document.querySelectorAll('#redeemPage .date-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      
+      const notice = document.getElementById('peakNotice');
+      const redeemBtn = document.getElementById('redeemBtn');
+      const ticketCount = 2; // From lookup, would be dynamic
+      
+      if (isPeak) {
+        notice.style.display = 'block';
+        document.querySelector('.peak-price').textContent = '+$' + (15 * ticketCount);
+        redeemBtn.textContent = 'Pay $' + (15 * ticketCount) + ' & Get QR Code';
+        redeemBtn.style.background = 'linear-gradient(135deg, #ff4fd8, #a855f7)';
+      } else {
+        notice.style.display = 'none';
+        redeemBtn.textContent = 'Get My QR Code — Included ✓';
+        redeemBtn.style.background = 'var(--gradient)';
+      }
     }
     
     function confirmRedemption() {
