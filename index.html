@@ -533,6 +533,48 @@
       font-size: 16px;
     }
     
+    /* Gift Toggle */
+    .gift-toggle {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+    }
+    
+    .gift-toggle:hover .checkbox {
+      border-color: var(--purple);
+    }
+    
+    .gift-toggle.selected .checkbox {
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+    
+    .gift-toggle.selected .checkbox::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .gift-check .checkbox {
+      position: relative;
+    }
+    
+    .gift-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .gift-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    
     /* ============ REDEEM PAGE ============ */
     
     /* Venue Selector */
@@ -849,15 +891,32 @@
         </div>
       </div>
       
-      <!-- How It Works -->
-      <div class="info-box">
-        <h4>🎁 How It Works</h4>
-        <ul>
-          <li>Buy tickets now — pick location & date later</li>
-          <li>Perfect for gifts!</li>
-          <li>Valid at any of our 8 Texas locations</li>
-          <li>Redeem anytime during the 2026 season</li>
-        </ul>
+      <!-- Gift Option -->
+      <div class="card">
+        <div class="gift-toggle" onclick="toggleGift()">
+          <div class="gift-check">
+            <div class="checkbox" id="giftCheckbox"></div>
+          </div>
+          <div class="gift-info">
+            <div class="gift-title">🎁 Send as a Gift</div>
+            <div class="gift-desc">We'll email the tickets to your recipient instead</div>
+          </div>
+        </div>
+        
+        <div class="gift-fields" id="giftFields" style="display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+          <div class="form-group">
+            <label class="form-label">Recipient's Name</label>
+            <input type="text" class="form-input" placeholder="Who's the lucky one?">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Recipient's Email</label>
+            <input type="email" class="form-input" placeholder="Their email address">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gift Message (optional)</label>
+            <textarea class="form-input" rows="2" placeholder="Merry Christmas! See you at The Light Park 🎄" style="resize: none;"></textarea>
+          </div>
+        </div>
       </div>
       
       <!-- Payment -->
@@ -1143,6 +1202,13 @@
     
     function togglePromo() {
       document.getElementById('promoRow').classList.toggle('show');
+    }
+    
+    function toggleGift() {
+      const toggle = document.querySelector('.gift-toggle');
+      const fields = document.getElementById('giftFields');
+      toggle.classList.toggle('selected');
+      fields.style.display = toggle.classList.contains('selected') ? 'block' : 'none';
     }
     
     function submitOrder() {
